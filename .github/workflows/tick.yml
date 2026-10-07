@@ -15,13 +15,13 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 40
     steps:
-      - uses: actions/checkout@v4
-      - uses: astral-sh/setup-uv@v6
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10
         with:
           enable-cache: true
       - run: uv sync --frozen
       - name: Restore derived database
-        uses: actions/cache/restore@v4
+        uses: actions/cache/restore@v6
         with:
           path: data/schiphol.sqlite
           key: derived-${{ github.run_id }}
@@ -45,7 +45,7 @@ jobs:
           fi
       - name: Save derived database
         if: always()
-        uses: actions/cache/save@v4
+        uses: actions/cache/save@v6
         with:
           path: data/schiphol.sqlite
           key: derived-${{ github.run_id }}
