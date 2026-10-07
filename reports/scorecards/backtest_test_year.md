@@ -1,6 +1,6 @@
 # Backtest scorecard: test year (1 Oct 2025 – 30 Sep 2026)
 
-Generated 2026-10-07 17:47 UTC. Rows: forecasts with a known target.
+Generated 2026-10-07 17:56 UTC. Rows: forecasts with a known target.
 
 Period: 2025-10-01 to 2026-09-30.
 

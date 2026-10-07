@@ -1,6 +1,6 @@
 # Backtest scorecard: tuning year (1 Oct 2024 – 30 Sep 2025)
 
-Generated 2026-10-07 17:47 UTC. Rows: forecasts with a known target.
+Generated 2026-10-07 17:56 UTC. Rows: forecasts with a known target.
 
 Period: 2024-10-01 to 2025-09-30.
 
