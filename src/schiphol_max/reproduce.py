@@ -22,6 +22,9 @@ def reproduce_file(ctx: Ctx, path: Path) -> list[str]:
         return [f"{path.name}: parameter set {f['parameter_version']} not found"]
     diffs = []
     stored = {r["target_day"]: r for r in f["records"]}
+    # Compare content: the re-run uses the code checked out now, stamped as the stored version, so any
+    # change in forecasting logic since then shows up as a content difference.
+    running_version, ctx.code_version = ctx.code_version, f["code_version"]
     for lead, day in target_days(ctx.cfg, f["run"], local_date(issue)):
         out = forecast_day(ctx, f["run"], lead, day, issue, P)
         old = stored.get(day.isoformat())
@@ -36,6 +39,7 @@ def reproduce_file(ctx: Ctx, path: Path) -> list[str]:
             diffs.append(f"{path}: {day} differs in {keys}")
         if base != f["baselines_by_day"].get(day.isoformat(), []):
             diffs.append(f"{path}: {day} baselines differ")
+    ctx.code_version = running_version
     return diffs
 
 
