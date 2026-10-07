@@ -45,7 +45,12 @@ def _sigma_table(ctx, key, R: int) -> dict:
     cal = ctx.cfg["calibration"]
     # Day-ahead: skip records from before three models were in the blend. Same-day: the blend is structurally
     # thin until the other models' exact runs reach 180 days (2026), so its own errors are used throughout (G4).
-    errs = record_errors(ctx, key, R, cal["window_days"], skip_degraded=key[1] >= 1)
+    skip = key[1] >= 1
+    if cal.get("spread_method", "season") == "recent_season":
+        table = _recent_season_sigma(ctx, key, R, skip)
+        if table is not None:
+            return table
+    errs = record_errors(ctx, key, R, cal["window_days"], skip_degraded=skip)
     by_season = {s: [] for s in SEASONS}
     for rec, y in errs:
         by_season[season(date.fromisoformat(rec["target_day"]))].append(rec["mu"] - y)
@@ -61,6 +66,32 @@ def _sigma_table(ctx, key, R: int) -> dict:
         else:
             table[s] = {"sigma": fallback, "n": len(pooled), "source": source}
     return table
+
+
+def _recent_season_sigma(ctx, key, R: int, skip: bool) -> dict | None:
+    """F1 variant: the level of the spread from the most recent errors, its seasonal shape from two years.
+
+    Seasonal factor f(s) = RMS of season-s errors / RMS of all errors over the last two years. The level is the RMS
+    of the last `recent_days` errors, each divided by its own season's factor; the spread for season s is that level
+    times f(s). This follows improvements in the blend within weeks instead of a year later."""
+    cal = ctx.cfg["calibration"]
+    long = record_errors(ctx, key, R, 730, skip_degraded=skip)
+    if len(long) < 2 * cal["min_errors"]:
+        return None
+    err = np.array([rec["mu"] - y for rec, y in long])
+    seas = np.array([season(date.fromisoformat(rec["target_day"])) for rec, _ in long])
+    days = np.array([date.fromisoformat(rec["target_day"]).toordinal() for rec, _ in long])
+    overall = float(np.sqrt(np.mean(err ** 2)))
+    factor = {}
+    for s in SEASONS:
+        sel = seas == s
+        factor[s] = float(np.sqrt(np.mean(err[sel] ** 2)) / overall) if sel.sum() >= cal["min_errors"] else 1.0
+    recent = days >= local_date(R).toordinal() - cal["recent_days"]
+    if recent.sum() < cal["min_errors"]:
+        return None
+    norm = err[recent] / np.array([factor[s] for s in seas[recent]])
+    level = float(np.sqrt(np.mean(norm ** 2)))
+    return {s: {"sigma": level * factor[s], "n": int(recent.sum()), "source": "recent_season"} for s in SEASONS}
 
 
 def _anchor_sigma(ctx, key, R: int) -> float:
@@ -125,11 +156,11 @@ def refit(ctx, R: int) -> dict:
     # F5 variant: tail weight from standardised past errors, pooled over keys.
     cal = cfg["calibration"]
     if cal["distribution"] == "student_t":
-        z = []
-        for key in keys(cfg):
-            for rec, y in record_errors(ctx, key, R, cal["window_days"]):
-                z.append((y - rec["mu"]) / rec["sigma"])
-        out["t_df"] = fit_t_df(np.array(z)) if len(z) >= 200 else cal.get("t_df") or 30.0
+        out["t_df_by_run"] = {}
+        for run in {k[0] for k in keys(cfg)}:
+            z = [(y - rec["mu"]) / rec["sigma"] for key in keys(cfg) if key[0] == run
+                 for rec, y in record_errors(ctx, key, R, cal["window_days"], skip_degraded=key[1] >= 1)]
+            out["t_df_by_run"][run] = fit_t_df(np.array(z)) if len(z) >= 200 else (cal.get("t_df") or 30.0)
 
     # F6 variant: spread scaled by how much the models disagree, in thirds of past disagreement.
     if cal["disagreement_spread"]:

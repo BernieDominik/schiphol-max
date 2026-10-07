@@ -172,7 +172,7 @@ def forecast_day(ctx: Ctx, run: str, lead: int, day: date, issue: int, P: dict) 
         third = 0 if disagreement <= dis["edges"][0] else (1 if disagreement <= dis["edges"][1] else 2)
         sigma *= dis["factors"][third]
     dist = cal["distribution"]
-    df = P.get("t_df") if dist == "student_t" else None
+    df = (P.get("t_df_by_run") or {}).get(run, P.get("t_df")) if dist == "student_t" else None
     probs = calibrate.degree_probabilities(mu, sigma, cal, dist=dist, df=df, max_so_far=mso)
     top = calibrate.top_degree(probs, mu)
     table, outside = calibrate.five_degree_table(probs, top, cal["decimals"])

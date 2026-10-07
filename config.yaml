@@ -164,6 +164,8 @@ calibration:
   distribution: normal                  # F5 variant: student_t
   t_df: null                            # fitted when distribution = student_t
   disagreement_spread: false            # F6 variant
+  spread_method: season                 # F1 as specified; "recent_season" = level from recent errors, seasonal shape from two years
+  recent_days: 120
   window_days: 365
   min_errors: 60
   floor_probability: 0.001              # F4

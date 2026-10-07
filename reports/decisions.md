@@ -52,3 +52,26 @@ significant, so the PRD rule drops it. If criterion 6 fails on the test year, F5
 product owner, because it targets exactly this shape. The spread also lags model additions: each season's spread
 comes from the same season a year earlier, when fewer models were in the blend. Errors were smaller than stated in
 summer and autumn 2025, and larger in January 2025.
+
+## 2026-10-07 — after scoring the test year: spread variants, tuning year only
+
+The first official scoring of the test year failed criteria 6 and 7 (details in `reports/checks/M6.md`). The
+probabilities were too cautious: the 30–40% band came true 42.7% of the time, and 90% intervals covered 94.8%. The
+tuning year had already shown the same pattern (above). So I tried one family of fixes, still judged on the tuning
+year only, and changed nothing that was chosen on the test year.
+
+| Variant | Evening lead 1: log-score diff [95% CI] | Early / noon / afternoon log-score diff | 90% coverage, evening lead 1 (seasons) | Worst calibration gap, evening lead 1 | Same-day worst gap | Decision |
+| --- | --- | --- | --- | --- | --- | --- |
+| Base (as specified: spread per season, 365 days) | — | — | 92.6% (DJF 90.0, MAM 89.1, JJA 97.8, SON 93.4) | 6.9 pp | 3.6 pp | **kept** |
+| F5 Student-t, tail weight per run | −0.0085 [−0.024, +0.008] | −0.007 / −0.001 / 0.000 | 91.2% (JJA 96.7) | 6.8 pp | 2.4 pp | drop |
+| F1 variant: spread level from the last 120 days, seasonal shape from two years | −0.0060 [−0.015, +0.002] | +0.004 / +0.001 / 0.000 | 92.9% (JJA 97.8) | 5.1 pp | 4.0 pp | drop |
+| F1 variant + F5 | −0.0149 [−0.031, +0.002] | −0.006 / −0.001 / −0.002 | 91.2% (JJA 95.7) | 8.9 pp | 2.8 pp | drop |
+
+No variant's interval excludes zero, so the simpler base version stays (PRD rule). One year cannot separate these.
+With 100–450 listed probabilities per band, the binomial noise in a band is about 2–3 pp, so the 5 pp bar sits at
+about two standard errors.
+
+What to do next is the product owner's call. My recommendation is to let the live soak decide. By then
+HARMONIE and ICON-D2 are in the blend (they reach 180 days of honest history in October 2026), and live errors give
+the spread a fresh, independent sample. If the soak shows the same caution, adopt F1 variant + F5, which had the
+best tuning-year log score.
