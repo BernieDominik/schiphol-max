@@ -20,7 +20,7 @@ the **test year** (1 Oct 2025 – 30 Sep 2026) is reported, not tuned on.
 | `probabilities` | Every degree within 8 °C, 4 decimals, largest-remainder rounding to sum exactly 1 | Resolves the PRD's "sums to 1" vs "lists ≥ 0.005" |
 | Standard forecast | Mean in tenths, rounded half up | Python rounds half to even |
 | E3 | MLpol written in NumPy | opera is R-only and archived on CRAN; its Python port has no licence |
-| Evening run time | 21:00 kept | Measured publish delays (p95, run start → archive): European 9 km model 7.3–8.0 h. At 21:00 the 12 UTC run is not yet out in summer or winter, so the evening run uses the 06 UTC run. A run at about 22:30 in winter / 22:15 in summer would catch the 12 UTC run (PRD open question 4; product owner's call). |
+| Evening run time | 21:00 kept | Measured 95th-percentile publish delay of the European 9 km model: 7.3 h (00 UTC run), 6.7 h (06), 8.0 h (12), 6.8 h (18). With the 10-minute margin the 12 UTC run is usable from 20:08 UTC, i.e. 21:08 in winter and 22:08 in summer. At 21:00 the evening run therefore uses the 06 UTC run. Moving it to about 21:15 in winter and 22:15 in summer would catch the newer run (PRD open question 4; the product owner decides, as it depends on when the forecast is needed). |
 
 ## 2026-10-07 — test-year numbers seen once during development
 
