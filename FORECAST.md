@@ -1,6 +1,6 @@
 # Schiphol daily maximum
 
-Highest temperature of the Amsterdam day at Schiphol, in whole °C, as judged by the Weather Underground history page. Probabilities are honest: outcomes rated near 30% happen about 30% of the time.
+Highest temperature of the Amsterdam day at Schiphol, in whole °C: the highest half-hourly airport report (the figure the Weather Underground history page is built from). Each degree gets its own probability.
 
 ```
 Wed 7 Oct, issued Wed 15:00
@@ -37,5 +37,7 @@ Chance of a miss of 2 °C or more against the standard forecast: 14% (typical 24
 | Sun 11 Oct | 15 °C | 30% | 94% |
 | Mon 12 Oct | 18 °C | 25% | 88% |
 | Tue 13 Oct | 19 °C | 14% | 63% |
+
+**System status:** Live since 2026-10-07: evening run on; same-day runs switch on after 7 clean days (0/7).
 
 Data: Open-Meteo (CC BY 4.0), KNMI, DWD, Iowa Environmental Mesonet, NOAA Aviation Weather Center.

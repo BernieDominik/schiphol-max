@@ -1,5 +1,6 @@
 {
  "awc_metar": 0,
+ "ensemble": 0,
  "iem_metar": 0,
  "knmi_daily": 0,
  "latest_runs": 0,

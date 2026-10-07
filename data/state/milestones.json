@@ -1,0 +1,14 @@
+{
+ "days": {
+  "2026-10-06": {
+   "reproduced": "ok"
+  }
+ },
+ "events": [],
+ "m0_m7_passed": null,
+ "overrides": {},
+ "same_day_from": null,
+ "soak_passed": null,
+ "soak_start": null,
+ "streak": 0
+}
