@@ -1,0 +1,50 @@
+[
+ {
+  "cutoff": "2026-03-19T00:00:01+00:00",
+  "outputs_compared": 12284,
+  "unchanged_when_future_altered": true,
+  "changed_when_past_altered": true
+ },
+ {
+  "cutoff": "2025-10-29T03:00:00+00:00",
+  "outputs_compared": 10008,
+  "unchanged_when_future_altered": true,
+  "changed_when_past_altered": true
+ },
+ {
+  "cutoff": "2026-04-10T02:00:00+00:00",
+  "outputs_compared": 12639,
+  "unchanged_when_future_altered": true,
+  "changed_when_past_altered": true
+ },
+ {
+  "cutoff": "2025-10-23T23:00:00+00:00",
+  "outputs_compared": 9927,
+  "unchanged_when_future_altered": true,
+  "changed_when_past_altered": true
+ },
+ {
+  "cutoff": "2025-11-09T20:00:01+00:00",
+  "outputs_compared": 10191,
+  "unchanged_when_future_altered": true,
+  "changed_when_past_altered": true
+ },
+ {
+  "cutoff": "2026-05-10T02:00:00+00:00",
+  "outputs_compared": 13124,
+  "unchanged_when_future_altered": true,
+  "changed_when_past_altered": true
+ },
+ {
+  "cutoff": "2025-10-25T23:30:00+00:00",
+  "outputs_compared": 9959,
+  "unchanged_when_future_altered": true,
+  "changed_when_past_altered": true
+ },
+ {
+  "cutoff": "2026-03-29T01:30:00+00:00",
+  "outputs_compared": 12445,
+  "unchanged_when_future_altered": true,
+  "changed_when_past_altered": true
+ }
+]
