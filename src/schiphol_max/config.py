@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import copy
 import os
-import subprocess
 from dataclasses import dataclass
 from functools import cached_property
 from pathlib import Path
@@ -118,15 +117,14 @@ def load_config(path: Path | None = None, data_dir: Path | None = None) -> Confi
 
 
 def code_version(root: Path = REPO_ROOT) -> str:
-    """Git SHA of the code, with '-dirty' when the tree has uncommitted changes."""
-    try:
-        sha = subprocess.run(
-            ["git", "rev-parse", "--short=7", "HEAD"], cwd=root, capture_output=True, text=True, check=True
-        ).stdout.strip()
-        dirty = subprocess.run(
-            ["git", "status", "--porcelain", "--untracked-files=no", "--", "src", "config.yaml", "pyproject.toml", "uv.lock"],
-            cwd=root, capture_output=True, text=True, check=True,
-        ).stdout.strip()
-        return sha + ("-dirty" if dirty else "")
-    except (subprocess.CalledProcessError, FileNotFoundError):
-        return "unknown"
+    """Fingerprint of the code that makes forecasts: the package source, config.yaml and the lockfile.
+    It changes only when they change (not when the hourly job commits data), and needs no git history."""
+    import hashlib
+
+    h = hashlib.sha256()
+    files = sorted((root / "src").rglob("*.py")) + [root / "config.yaml", root / "uv.lock"]
+    for p in files:
+        if p.exists():
+            h.update(str(p.relative_to(root)).encode())
+            h.update(p.read_bytes())
+    return h.hexdigest()[:7]
