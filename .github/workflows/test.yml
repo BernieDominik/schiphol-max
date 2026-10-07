@@ -1,0 +1,16 @@
+name: test
+on:
+  push:
+    paths: ["src/**", "tests/**", "config.yaml", "pyproject.toml", "uv.lock"]
+  pull_request:
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+      - run: uv sync --frozen
+      - run: uv run pytest

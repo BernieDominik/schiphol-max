@@ -1,0 +1,32 @@
+[project]
+name = "schiphol-max"
+version = "1.0.0"
+description = "Forecasts the daily maximum temperature at Amsterdam Schiphol as honest probabilities per whole degree"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "numpy>=2.1",
+    "pandas>=2.2",
+    "scipy>=1.14",
+    "scikit-learn>=1.5",
+    "pyyaml>=6.0",
+    "requests>=2.32",
+    "matplotlib>=3.9",
+    "scoringrules>=0.11",
+]
+
+[project.scripts]
+smax = "schiphol_max.cli:main"
+
+[dependency-groups]
+dev = ["pytest>=8.3"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/schiphol_max"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"

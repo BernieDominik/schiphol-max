@@ -1,0 +1,54 @@
+# The scheduled job (PRD "Daily schedule"): GitHub wakes it every hour; `smax tick` does whatever is due
+# in Amsterdam time, including slots missed in the last 72 hours, then commits what it produced.
+name: tick
+on:
+  schedule:
+    - cron: "7 * * * *"      # :07 avoids GitHub's busy top of the hour
+  workflow_dispatch:
+concurrency:
+  group: smax-data
+  cancel-in-progress: false
+permissions:
+  contents: write
+jobs:
+  tick:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+      - run: uv sync --frozen
+      - name: Restore derived database
+        uses: actions/cache/restore@v4
+        with:
+          path: data/schiphol.sqlite
+          key: derived-${{ github.run_id }}
+          restore-keys: derived-
+      - name: Tick
+        id: tick
+        continue-on-error: true
+        env:
+          HEALTHCHECKS_URL: ${{ secrets.HEALTHCHECKS_URL }}
+          KNMI_API_KEY: ${{ secrets.KNMI_API_KEY }}
+        run: uv run smax tick
+      - name: Commit outputs
+        if: always()
+        run: |
+          git config user.name "schiphol-max bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A data reports FORECAST.md
+          if ! git diff --cached --quiet; then
+            git commit -q -m "tick $(date -u +%Y-%m-%dT%H:%MZ)"
+            for i in 1 2 3 4 5; do git pull --rebase -q && git push -q && break; sleep 10; done
+          fi
+      - name: Save derived database
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: data/schiphol.sqlite
+          key: derived-${{ github.run_id }}
+      - name: Fail if the tick raised alerts (GitHub emails the owner)
+        if: steps.tick.outcome == 'failure'
+        run: exit 1

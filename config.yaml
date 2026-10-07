@@ -1,0 +1,193 @@
+# Schiphol daily-high forecaster: every place, model, schedule and tuning value lives here.
+# Code never hard-codes these numbers (PRD coding rule).
+
+location:
+  name: Amsterdam Schiphol
+  latitude: 52.318
+  longitude: 4.790
+  timezone: Europe/Amsterdam
+  icao: EHAM
+  knmi_station: 240
+  wmo_station: "06240"
+
+# Weather models. `collect: true` = always collected; `blend: true` = allowed into the blend.
+# Identifiers copied from the Open-Meteo request builder (see docs/PLAN.md, research of 5 Oct 2026).
+# run_hours: UTC start hours of runs kept by the Single Runs archive (every 3 h at most).
+# horizon_h: forecast length per run hour, used to decide which runs cover a target day.
+# delay_h: conservative fallback publishing delay; replaced by measured 95th percentiles when known.
+models:
+  ifs_hres:
+    openmeteo: ecmwf_ifs
+    publish_dir: ecmwf_ifs
+    run_hours: [0, 6, 12, 18]
+    horizon_h: {0: 360, 6: 144, 12: 360, 18: 144}
+    single_runs_from: "2024-03-14T00:00Z"
+    previous_runs_from: "2025-10-01"
+    delay_h: 8.0
+    collect: true
+    blend: true
+  aifs_single:
+    openmeteo: ecmwf_aifs025_single
+    publish_dir: ecmwf_aifs025_single
+    run_hours: [0, 6, 12, 18]
+    horizon_h: {0: 360, 6: 360, 12: 360, 18: 360}
+    single_runs_from: "2026-04-02T00:00Z"
+    previous_runs_from: "2025-02-18"
+    delay_h: 8.0
+    collect: true
+    blend: true
+  harmonie_nl:
+    openmeteo: knmi_harmonie_arome_netherlands
+    publish_dir: knmi_harmonie_arome_netherlands
+    run_hours: [0, 3, 6, 9, 12, 15, 18, 21]
+    horizon_h: {0: 60, 3: 60, 6: 60, 9: 60, 12: 60, 15: 60, 18: 60, 21: 60}
+    previous_run_every_h: 1      # the Previous Runs archive keeps every hourly run
+    single_runs_from: "2026-04-02T00:00Z"
+    previous_runs_from: "2024-06-27"
+    delay_h: 3.5
+    collect: true
+    blend: true
+  icon_d2:
+    openmeteo: dwd_icon_d2
+    publish_dir: dwd_icon_d2
+    run_hours: [0, 3, 6, 9, 12, 15, 18, 21]
+    horizon_h: {0: 48, 3: 48, 6: 48, 9: 48, 12: 48, 15: 48, 18: 48, 21: 48}
+    single_runs_from: "2026-04-02T00:00Z"
+    previous_runs_from: "2024-01-19"
+    delay_h: 3.0
+    collect: true
+    blend: true
+  icon_eu:
+    openmeteo: dwd_icon_eu
+    publish_dir: dwd_icon_eu
+    run_hours: [0, 3, 6, 9, 12, 15, 18, 21]
+    horizon_h: {0: 120, 3: 30, 6: 120, 9: 30, 12: 120, 15: 30, 18: 120, 21: 30}
+    single_runs_from: "2026-04-02T00:00Z"
+    previous_runs_from: "2024-01-19"
+    delay_h: 4.5
+    collect: true
+    blend: true
+  gfs:
+    openmeteo: ncep_gfs_global
+    publish_dir: ncep_gfs013
+    run_hours: [0, 6, 12, 18]
+    horizon_h: {0: 384, 6: 384, 12: 384, 18: 384}
+    single_runs_from: "2026-04-02T00:00Z"
+    previous_runs_from: "2021-03-24"
+    delay_h: 6.0
+    collect: true
+    blend: true
+  ukmo_global:
+    openmeteo: ukmo_global_deterministic_10km
+    publish_dir: ukmo_global_deterministic_10km
+    run_hours: [0, 6, 12, 18]
+    horizon_h: {0: 168, 6: 168, 12: 168, 18: 168}
+    single_runs_from: "2026-04-02T00:00Z"
+    previous_runs_from: "2024-08-08"
+    delay_h: 7.0
+    collect: true
+    blend: true
+  arpege_europe:
+    openmeteo: meteofrance_arpege_europe
+    publish_dir: meteofrance_arpege_europe
+    run_hours: [0, 6, 12, 18]
+    horizon_h: {0: 102, 6: 72, 12: 102, 18: 72}
+    single_runs_from: "2026-04-02T00:00Z"
+    previous_runs_from: "2024-01-19"
+    delay_h: 5.0
+    collect: true
+    blend: true
+
+anchor_model: ifs_hres
+
+# Dated weather-model upgrades (I3): faster running-bias tracking for 30 days after each.
+upgrades:
+  - {model: ifs_hres, date: "2023-06-27", note: "IFS cycle 48r1"}
+  - {model: ifs_hres, date: "2024-11-12", note: "IFS cycle 49r1"}
+  - {model: ifs_hres, date: "2026-05-12", note: "IFS cycle 50r1"}
+
+ensembles:
+  - {name: ecmwf_ens, openmeteo: ecmwf_ifs025_ensemble}
+
+# Daily schedule in Europe/Amsterdam time. Nothing between 02:00 and 03:00 (clock-change hour).
+schedule:
+  forecast_runs:
+    evening: {time: "21:00", leads: [1, 2, 3, 4, 5, 6, 7]}
+    early: {time: "06:00", leads: [0]}
+    morning: {time: "09:00", leads: [0]}
+    noon: {time: "12:00", leads: [0]}
+    afternoon: {time: "15:00", leads: [0]}
+  settle: "01:00"
+  refit: {weekday: 6, time: "04:00"}     # Monday=0 ... Sunday=6
+  completeness: "07:00"
+  scorecard: {weekday: 0, time: "08:00"}
+  on_time_minutes: 30                   # later than this a forecast is flagged late
+  catch_up_hours: 72                    # missed slots younger than this are filled in
+
+# Which runs are switched on in live running. Milestone 7 = evening only. After its 7-day check passes,
+# milestone 8 adds the same-day runs: set [evening, early, morning, noon, afternoon], then fill the gap with
+# `smax replay --runs early,morning,noon,afternoon` (those records are marked mode "replay").
+live:
+  runs: [evening]
+  chain_start: "2024-01-20"             # first target day of the official record chain
+  wu_from: "2026-10-08"                 # target days from here are settled on hand-entered WU values
+
+target:
+  history_from: "2012-01-01"            # genuine half-hourly airport reports in IEM start ~2012
+  wu_max_gap_c: 2                       # entries further than this from the rebuilt value need --confirm
+  wu_reminder_days: 2
+
+collection:
+  forecast_days: 8
+  metar_delay_minutes: 5                # availability of archived airport reports after observation time
+  publish_margin_minutes: 10            # Open-Meteo asks clients to wait after a run is published
+  openmeteo_calls_per_minute: 120
+  openmeteo_calls_per_hour: 4000
+  openmeteo_min_interval_s: 0.5
+  user_agent: "schiphol-max/1.0 (personal forecasting project)"
+
+correction:
+  ridge_alpha: 1.0
+  min_paired_days: 180                  # D4
+  seasonal_after_days: 365              # seasonal pair only once a year of history exists
+  running_bias_weight: 0.03             # D3
+  upgrade_bias_weight: 0.10             # I3
+  upgrade_days: 30
+
+blend:
+  method: inverse_mae                   # E1; "mlpol" is the E3 variant
+  mae_window_days: 60
+  min_mae_days: 20
+  min_models: 3                         # fewer = degraded (E2)
+
+calibration:
+  distribution: normal                  # F5 variant: student_t
+  t_df: null                            # fitted when distribution = student_t
+  disagreement_spread: false            # F6 variant
+  window_days: 365
+  min_errors: 60
+  floor_probability: 0.001              # F4
+  floor_range_c: 8
+  fallback_sigma: {0: 1.0, 1: 1.4, 2: 1.7, 3: 2.0, 4: 2.3, 5: 2.6, 6: 2.9, 7: 3.2}
+  below_max_total: 0.002                # G5
+  decimals: 4
+
+sameday:
+  error_window_hours: 3                 # G2
+  min_records: 60
+
+deviation:
+  miss_threshold_c: 2                   # H3
+  typical_window_days: 365
+
+baselines:
+  ar_coefficient_hint: 0.74
+
+testing:
+  test_months: 12
+  test_end: "2026-09-30"                # test year 2025-10-01..2026-09-30; tuning year the 12 months before
+  bootstrap_resamples: 1000
+  bootstrap_seed: 20261004
+  calibration_bands: [0.0, 0.10, 0.20, 0.30, 0.40, 0.50, 1.01]
+  hot_day_c: 30
+  jump_day_c: 5

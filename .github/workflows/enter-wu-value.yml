@@ -1,0 +1,52 @@
+# Type in yesterday's Weather Underground maximum (WU's terms forbid automated reading).
+# Actions → enter-wu-value → Run workflow. Works from the GitHub phone app.
+name: enter-wu-value
+on:
+  workflow_dispatch:
+    inputs:
+      day:
+        description: "Date (YYYY-MM-DD)"
+        required: true
+      value:
+        description: "Daily maximum in whole °C, as shown on the WU Schiphol history page"
+        required: true
+      confirm:
+        description: "Confirm a value more than 2 °C from the airport-report maximum"
+        type: boolean
+        default: false
+concurrency:
+  group: smax-data
+  cancel-in-progress: false
+permissions:
+  contents: write
+jobs:
+  enter:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+      - run: uv sync --frozen
+      - uses: actions/cache/restore@v4
+        with:
+          path: data/schiphol.sqlite
+          key: derived-${{ github.run_id }}
+          restore-keys: derived-
+      - name: Record the value
+        env:
+          DAY: ${{ inputs.day }}
+          VALUE: ${{ inputs.value }}
+          CONFIRM: ${{ inputs.confirm }}
+        run: |
+          extra=""
+          if [ "$CONFIRM" = "true" ]; then extra="--confirm"; fi
+          uv run smax target set "$DAY" "$VALUE" --by github-form $extra
+      - name: Commit
+        run: |
+          git config user.name "schiphol-max bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A data/raw/wu_target
+          git commit -q -m "WU maximum for ${{ inputs.day }}"
+          for i in 1 2 3 4 5; do git pull --rebase -q && git push -q && break; sleep 10; done
