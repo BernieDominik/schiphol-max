@@ -40,3 +40,21 @@
 {"ts": "2026-10-07T17:50:28Z", "job": "ingest", "event": "success", "detail": "12448"}
 {"ts": "2026-10-07T17:50:32Z", "job": "forecast page", "event": "start", "detail": ""}
 {"ts": "2026-10-07T17:50:32Z", "job": "forecast page", "event": "success", "detail": "2 days"}
+{"ts": "2026-10-07T17:58:11Z", "job": "latest_runs", "event": "start", "detail": ""}
+{"ts": "2026-10-07T17:58:12Z", "job": "latest_runs", "event": "success", "detail": "{'ifs_hres': 1791374400, 'aifs_single': 1791374400, 'harmonie_nl': 1791385200, 'icon_d2': 1791385200, 'icon_eu': 1791385200, 'gfs': 1791374400, 'ukmo_global': 1791352800, 'arpege_europe': 1791374400}"}
+{"ts": "2026-10-07T17:58:12Z", "job": "single_runs", "event": "start", "detail": ""}
+{"ts": "2026-10-07T17:58:14Z", "job": "single_runs", "event": "success", "detail": "{'2026-10-07T12:00:00Z': {'ifs_hres': 'ok', 'gfs': 'unavailable'}, '2026-10-07T15:00:00Z': {'icon_eu': 'ok'}}"}
+{"ts": "2026-10-07T17:58:14Z", "job": "awc_metar", "event": "start", "detail": ""}
+{"ts": "2026-10-07T17:58:14Z", "job": "awc_metar", "event": "success", "detail": ""}
+{"ts": "2026-10-07T17:58:14Z", "job": "mosmix", "event": "start", "detail": ""}
+{"ts": "2026-10-07T17:58:14Z", "job": "mosmix", "event": "success", "detail": "[]"}
+{"ts": "2026-10-07T17:58:14Z", "job": "publish_times", "event": "start", "detail": ""}
+{"ts": "2026-10-07T17:58:14Z", "job": "publish_times", "event": "success", "detail": "[None, None]"}
+{"ts": "2026-10-07T17:58:14Z", "job": "iem_metar", "event": "start", "detail": ""}
+{"ts": "2026-10-07T17:58:14Z", "job": "iem_metar", "event": "success", "detail": ""}
+{"ts": "2026-10-07T17:58:14Z", "job": "knmi_daily", "event": "start", "detail": ""}
+{"ts": "2026-10-07T17:58:14Z", "job": "knmi_daily", "event": "success", "detail": ""}
+{"ts": "2026-10-07T17:58:14Z", "job": "ingest", "event": "start", "detail": ""}
+{"ts": "2026-10-07T17:58:16Z", "job": "ingest", "event": "success", "detail": "4"}
+{"ts": "2026-10-07T17:58:21Z", "job": "forecast page", "event": "start", "detail": ""}
+{"ts": "2026-10-07T17:58:21Z", "job": "forecast page", "event": "success", "detail": "2 days"}
