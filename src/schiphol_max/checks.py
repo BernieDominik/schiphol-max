@@ -99,13 +99,17 @@ def write_checks(cfg: Config, only: list[str] | None = None, log=print) -> None:
     from .target import check_sheet, target_vs_knmi
     c1 = check_sheet(cfg, data, sheet) if sheet.exists() else {"filled": 0, "agree": 0, "pass": False, "mismatches": []}
     c1_ok = None if c1["filled"] < 60 else c1["pass"]
-    status[1] = (c1_ok, f"{c1['agree']} of {c1['filled']} sample days agree" if c1["filled"] else "awaiting the 60 WU values")
+    status[1] = (c1_ok, f"{c1['agree']} of {c1['filled']} sample days agree" if c1["filled"] else
+                 "open: needs a person to read 60 WU pages (WU forbids automated reading); the system uses the airport-report maximum meanwhile")
     (out / "M1.md").write_text("\n".join([
         "# M1 — Target series", "", stamp, "",
         f"**Pass criterion 1 (rebuilt target matches the Weather Underground page on ≥ 57 of 60 sample days): {_status(c1_ok)}**", "",
         f"Sample sheet: `reports/wu_check_sheet.csv` (15 days per season, 12 with the maximum before 09:00 or after 20:00). "
         f"Filled: {c1['filled']} of 60; agree: {c1['agree']}.",
-        "Fill the `wu_max_c` column from the WU page (units °C), then run `uv run smax target check reports/wu_check_sheet.csv`.",
+        "Fill the `wu_max_c` column from the WU page (units °C), then run `uv run smax target check reports/wu_check_sheet.csv`. "
+        "The sheet is blind; the rebuilt values are in `reports/wu_check_key.csv`.", "",
+        "Since 7 Oct 2026 the live target is the airport-report maximum itself, settled automatically, because nobody "
+        "enters WU values by hand. This check would confirm that it equals the WU page.",
         "", "Mismatches: " + (", ".join(f"{d} rebuilt {r} vs WU {w} (max at {t})" for d, r, w, t in c1["mismatches"]) or "none"), "",
         "## Rebuilt target against the KNMI official maximum (rounded half up), by month", "",
         "The KNMI series covers 00–24 UTC and is a continuous maximum in tenths; the target is the highest half-hourly "

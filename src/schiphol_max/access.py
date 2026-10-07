@@ -16,7 +16,7 @@ import numpy as np
 
 from .config import Config
 from .derived import connect
-from .timeutil import HOUR, UTC, day_bounds, from_ts, local_date, to_date, to_ts
+from .timeutil import HOUR, UTC, day_bounds, from_ts, local_date, parse_ts, to_date, to_ts
 
 
 @dataclass
@@ -65,6 +65,11 @@ class Data:
         con = con or connect(cfg)
         self.margin = cfg["collection"]["publish_margin_minutes"] * 60
         self.metar_delay = cfg["collection"]["metar_delay_minutes"] * 60
+        # Live rule: anything that first reached our store after go-live counts as available no earlier than
+        # (when we stored it − grace). The grace covers the hourly job starting a few minutes after a slot, so an
+        # on-time forecast and any later re-run see exactly the same inputs; data that arrived late stays late.
+        self.go_live = parse_ts(cfg["live"]["go_live"])
+        self.grace = cfg["schedule"]["on_time_minutes"] * 60
         self._load_publish(con)
         self._load_models(con)
         self._load_metar(con)
@@ -100,6 +105,11 @@ class Data:
                 else:
                     self.delay[(name, h)] = int(spec.delay_h * HOUR)
 
+    def live_rule(self, source_available: int, first_stored: int | None) -> int:
+        if first_stored is not None and first_stored >= self.go_live:
+            return max(source_available, first_stored - self.grace)
+        return source_available
+
     def run_available(self, model: str, run: int) -> int:
         pub = self.published.get((model, run))
         if pub is None:
@@ -108,6 +118,7 @@ class Data:
 
     def _load_models(self, con) -> None:
         self.models: dict[str, ModelSeries] = {m: ModelSeries() for m in self.cfg.models}
+        stored = {(m, r): f for m, r, f in con.execute("SELECT model, run, fetched_at FROM single_run WHERE status='ok'")}
         rows = con.execute("SELECT model, run, valid, temp FROM single_hourly ORDER BY model, run, valid").fetchall()
         if rows:
             arr = np.array([(r[1], r[2], r[3]) for r in rows], dtype=float)
@@ -117,8 +128,8 @@ class Data:
                 if i == len(rows) or models[i] != models[start] or arr[i, 0] != arr[start, 0]:
                     m, run = models[start], int(arr[start, 0])
                     if m in self.models:
-                        self.models[m].runs.append(Run(m, run, self.run_available(m, run),
-                                                       arr[start:i, 1].astype(np.int64), arr[start:i, 2]))
+                        avail = self.live_rule(self.run_available(m, run), stored.get((m, run)))
+                        self.models[m].runs.append(Run(m, run, avail, arr[start:i, 1].astype(np.int64), arr[start:i, 2]))
                     start = i
         for ms in self.models.values():
             ms.runs.sort(key=lambda r: r.run)
@@ -138,19 +149,20 @@ class Data:
             self.models[m].prev_valid, self.models[m].prev_temp = valid, mat
 
     def _load_metar(self, con) -> None:
-        by_obs: dict[int, list[tuple[str, int | None, int | None]]] = {}
-        for obs, report, temp, receipt in con.execute("SELECT obs, report, temp, receipt FROM metar ORDER BY obs"):
-            by_obs.setdefault(obs, []).append((report, temp, receipt))
+        by_obs: dict[int, list[tuple[str, int | None, int | None, int | None]]] = {}
+        for obs, report, temp, receipt, seen in con.execute("SELECT obs, report, temp, receipt, first_seen FROM metar ORDER BY obs"):
+            by_obs.setdefault(obs, []).append((report, temp, receipt, seen))
         reports = []
         for obs, items in by_obs.items():
             cor = [it for it in items if " COR " in f" {it[0]} "]
             chosen = cor or items
-            temps = [t for _, t, _ in chosen if t is not None]
+            temps = [it[1] for it in chosen if it[1] is not None]
             if not temps:
                 continue
-            receipts = [r for _, _, r in items if r is not None]
-            available = max(obs + self.metar_delay, min(receipts)) if receipts else obs + self.metar_delay
-            reports.append(Report(obs, max(temps), available))
+            receipts = [it[2] for it in items if it[2] is not None]
+            source = max(obs + self.metar_delay, min(receipts)) if receipts else obs + self.metar_delay
+            seen = [it[3] for it in items if it[3] is not None]
+            reports.append(Report(obs, max(temps), self.live_rule(source, min(seen) if seen else None)))
         self.reports = reports
         self.report_obs = np.array([r.obs for r in reports], dtype=np.int64)
         self.report_temp = np.array([r.temp for r in reports], dtype=float)
@@ -167,9 +179,13 @@ class Data:
                 s, e = day_bounds(d)
                 i, j = np.searchsorted(self.report_obs, [s, e])
                 if j > i and j < len(self.report_obs):
-                    value = int(self.report_temp[i:j].max())
-                    # Final once the first report of the next day is out (PRD target rule 2).
-                    self.rebuilt[d] = (value, int(self.report_avail[j]), j - i)
+                    # Final once the first report of the next day is out (PRD target rule 2), and frozen then:
+                    # a report that reaches us later does not change it.
+                    final = int(self.report_avail[j])
+                    known = self.report_avail[i:j] <= final
+                    if known.any():
+                        value = int(self.report_temp[i:j][known].max())
+                        self.rebuilt[d] = (value, final, int(known.sum()))
                 d += timedelta(days=1)
         self.wu: dict[date, tuple[int, int]] = {}
         for day, value, entered in con.execute("SELECT day, value, entered_at FROM wu ORDER BY entered_at"):
@@ -189,7 +205,7 @@ class Data:
 
     def target(self, day: date, as_of: int | None = None) -> tuple[int, str, int] | None:
         """(value, source, available) of the target for `day`, if known by `as_of`."""
-        if day >= self.wu_from:
+        if self.cfg["target"].get("live_source", "wu") == "wu" and day >= self.wu_from:
             hit = self.wu.get(day)
             src = "wu"
         else:

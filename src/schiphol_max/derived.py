@@ -18,6 +18,7 @@ from .rawstore import iter_raw, read_json
 from .timeutil import UTC, parse_ts, to_ts
 
 SCHEMA = """
+CREATE TABLE IF NOT EXISTS meta(key TEXT PRIMARY KEY, value TEXT);
 CREATE TABLE IF NOT EXISTS ingested(path TEXT PRIMARY KEY);
 CREATE TABLE IF NOT EXISTS single_run(model TEXT, run INTEGER, fetched_at INTEGER, status TEXT,
     PRIMARY KEY(model, run));
@@ -28,7 +29,7 @@ CREATE TABLE IF NOT EXISTS prev_hourly(model TEXT, valid INTEGER, n INTEGER, tem
 CREATE TABLE IF NOT EXISTS publish(model TEXT, run INTEGER, published INTEGER, source TEXT,
     PRIMARY KEY(model, run, source));
 CREATE TABLE IF NOT EXISTS metar(obs INTEGER, report TEXT, temp INTEGER, source TEXT, receipt INTEGER,
-    PRIMARY KEY(obs, report));
+    first_seen INTEGER, PRIMARY KEY(obs, report));
 CREATE TABLE IF NOT EXISTS knmi(day TEXT PRIMARY KEY, tx REAL, txh INTEGER, fetched_at INTEGER);
 CREATE TABLE IF NOT EXISTS mosmix(issue INTEGER, valid INTEGER, ttt REAL, tx REAL, published INTEGER,
     PRIMARY KEY(issue, valid));
@@ -40,10 +41,24 @@ CREATE TABLE IF NOT EXISTS fetch_log(source TEXT, name TEXT, fetched_at INTEGER,
 TEMP_TOKEN = re.compile(r"^(M?\d\d)/(M?\d\d|//)?$")
 
 
+SCHEMA_VERSION = "2"
+
+
 def connect(cfg: Config) -> sqlite3.Connection:
+    """Open the derived database; an older layout is deleted and rebuilt from the raw store."""
     cfg.db_path.parent.mkdir(parents=True, exist_ok=True)
     con = sqlite3.connect(cfg.db_path)
+    try:
+        version = con.execute("SELECT value FROM meta WHERE key='schema'").fetchone()
+    except sqlite3.OperationalError:
+        version = None
+    has_tables = con.execute("SELECT count(*) FROM sqlite_master WHERE type='table'").fetchone()[0]
+    if has_tables and (version is None or version[0] != SCHEMA_VERSION):
+        con.close()
+        cfg.db_path.unlink()
+        con = sqlite3.connect(cfg.db_path)
     con.executescript(SCHEMA)
+    con.execute("INSERT OR REPLACE INTO meta VALUES ('schema', ?)", (SCHEMA_VERSION,))
     return con
 
 
@@ -89,9 +104,11 @@ def _ingest_file(con: sqlite3.Connection, source_dir: str, path: Path, rel: str)
         model, run = d["model"], parse_ts(d["run"])
         body = d.get("body") or {}
         status = "ok" if body else "unavailable"
+        # fetched_at is when we first held the run's data (a later 'unavailable' marker never overrides it).
         con.execute("""INSERT INTO single_run VALUES (?,?,?,?) ON CONFLICT(model, run) DO UPDATE SET
-                       status=CASE WHEN single_run.status='ok' THEN 'ok' ELSE excluded.status END,
-                       fetched_at=excluded.fetched_at""", (model, run, fetched, status))
+                       fetched_at=CASE WHEN single_run.status='ok' THEN single_run.fetched_at ELSE excluded.fetched_at END,
+                       status=CASE WHEN single_run.status='ok' THEN 'ok' ELSE excluded.status END""",
+                    (model, run, fetched, status))
         hourly = body.get("hourly") or {}
         times, temps = hourly.get("time") or [], hourly.get("temperature_2m") or []
         con.executemany("INSERT OR REPLACE INTO single_hourly VALUES (?,?,?,?)",
@@ -131,8 +148,9 @@ def _ingest_file(con: sqlite3.Connection, source_dir: str, path: Path, rel: str)
             temp = metar_temperature(report)
             if temp is None and parts[2] not in ("M", ""):
                 temp = int(round(float(parts[2])))
-            rows.append((obs, report, temp, "iem", None))
-        con.executemany("""INSERT INTO metar VALUES (?,?,?,?,?) ON CONFLICT(obs, report) DO NOTHING""", rows)
+            rows.append((obs, report, temp, "iem", None, fetched))
+        con.executemany("""INSERT INTO metar VALUES (?,?,?,?,?,?) ON CONFLICT(obs, report)
+                           DO UPDATE SET first_seen=min(metar.first_seen, excluded.first_seen)""", rows)
     elif src == "awc_metar":
         rows = []
         for item in d["body"] or []:
@@ -141,9 +159,10 @@ def _ingest_file(con: sqlite3.Connection, source_dir: str, path: Path, rel: str)
             if temp is None and item.get("temp") is not None:
                 temp = int(round(item["temp"]))
             receipt = _ts(item.get("receiptTime", "").replace(".000Z", "Z")) if item.get("receiptTime") else None
-            rows.append((int(item["obsTime"]), report, temp, "awc", receipt))
-        con.executemany("""INSERT INTO metar VALUES (?,?,?,?,?) ON CONFLICT(obs, report)
-                           DO UPDATE SET receipt=coalesce(min(metar.receipt, excluded.receipt), metar.receipt, excluded.receipt)""", rows)
+            rows.append((int(item["obsTime"]), report, temp, "awc", receipt, fetched))
+        con.executemany("""INSERT INTO metar VALUES (?,?,?,?,?,?) ON CONFLICT(obs, report)
+                           DO UPDATE SET receipt=coalesce(min(metar.receipt, excluded.receipt), metar.receipt, excluded.receipt),
+                                         first_seen=min(metar.first_seen, excluded.first_seen)""", rows)
     elif src == "knmi_daily":
         body = d.get("body")
         if isinstance(body, list):

@@ -75,3 +75,16 @@ What to do next is the product owner's call. My recommendation is to let the liv
 HARMONIE and ICON-D2 are in the blend (they reach 180 days of honest history in October 2026), and live errors give
 the spread a fresh, independent sample. If the soak shows the same caution, adopt F1 variant + F5, which had the
 best tuning-year log score.
+
+## 2026-10-07 — hands-off operation (product owner: "do all next steps")
+
+| Topic | Decision | Why |
+| --- | --- | --- |
+| Target from 8 Oct 2026 | The highest half-hourly airport report of the Amsterdam day, settled automatically. Hand-entered WU values are optional checks. | Nobody will type the WU value daily. WU's terms forbid automated reading. The Polymarket resolutions that settle on the same page are not reachable from the Netherlands, and I will not route around a geo-block. The rebuilt series is already the stand-in for all training history. |
+| Criterion 1 | Stays open | It needs a person to read 60 WU pages (`reports/wu_check_sheet.csv`, about 30 minutes). Until then the system forecasts the airport-report maximum, which the WU page is believed to be built from (unconfirmed). |
+| Live availability | From go-live (7 Oct 2026, 18:30 UTC), a value counts as available no earlier than 30 minutes before we first stored it | A value that reached us late (failed fetch, archive lag) must not appear in a re-run of a forecast made without it. The 30 minutes cover the hourly job starting after the slot. The target is frozen at the moment it is settled. |
+| Method settings | Blend method, distribution and spread option are stored in every parameter set | A later change applies from the next refit, and re-runs always use the settings that were in force |
+| Milestones | Advance automatically: 7 good days, then same-day runs; 60 good days, then criterion 10 and the final report | No sign-offs |
+| Calibration (pre-registered, before any live data) | At the end of the soak, replay the soak period with each refinement (F5, F1 variant, both, E3, F6). Adopt the one with the best log score on the day-ahead forecast only if its 95% interval (whole-week bootstrap) excludes zero; otherwise change nothing. | The PRD's own rule, applied to fresh data that no design choice has seen |
+| Healthchecks.io | Not set up | It needs an account in your name; GitHub already emails you when a run fails |
+| Evening run time, model list | Unchanged: 21:00, all eight models | My recommendations, taken as decided |

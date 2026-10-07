@@ -1,12 +1,12 @@
 # Pass criteria for version 1
 
-Generated 2026-10-07 17:55 UTC from the official record chain (`data/records`).
+Generated 2026-10-07 18:12 UTC from the official record chain (`data/records`).
 
 Test year: 2025-10-01 to 2026-09-30 (walk-forward backtest; nothing fitted on a day it forecasts).
 
 | # | Criterion | Status | Measured |
 | --- | --- | --- | --- |
-| 1 | Rebuilt target matches the WU page | PENDING | awaiting the 60 WU values |
+| 1 | Rebuilt target matches the WU page | PENDING | open: needs a person to read 60 WU pages (WU forbids automated reading); the system uses the airport-report maximum meanwhile |
 | 2 | Baselines reproduce the research figures | PASS | persistence 2.00, climatology 2.68, autoregression 1.89 |
 | 3 | No look-ahead | PASS | 8 cut-offs |
 | 4 | Day-ahead blend beats its inputs | FAIL | blend MAE 0.70, log score 1.338 |

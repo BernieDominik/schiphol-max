@@ -23,17 +23,28 @@ A late run produces exactly the same forecast as an on-time one. Each value's av
 source (model publish times, airport-report receipt times), never from when it was fetched, and `access.py`
 filters every query by the issue time.
 
-## The one daily chore
+## No daily chores
 
-Weather Underground's terms forbid automated reading, so the target is typed in. Each morning, or weekly,
-open <https://www.wunderground.com/history/daily/nl/schiphol/EHAM> with units set to °C, then enter the day's
-maximum:
+The target is the highest half-hourly airport report (METAR) of the Amsterdam day, which is the figure the
+Weather Underground history page is built from. It is settled automatically at 01:00. Weather Underground's terms
+forbid automated reading, so WU values are not collected.
 
-- **GitHub:** Actions → **enter-wu-value** → Run workflow (works in the GitHub phone app), or
-- **command line:** `uv run smax target set 2026-10-08 17`
+You *may* type in a WU value as a check (Actions → **enter-wu-value**, or `uv run smax target set 2026-10-08 17`).
+Entries are kept and compared, but they are not needed.
 
-The first value entered for a day is final. Values more than 2 °C from the airport-report maximum need a
-confirmation. A reminder alert fires after 2 missing days.
+## Milestones run themselves
+
+`src/schiphol_max/milestones.py` advances the build plan without sign-offs. State is kept in `data/state/milestones.json`.
+
+1. A day is **good** when its completeness report shows no gap in our own collection and the nightly re-run of its
+   forecasts matched exactly.
+2. After **7 good days in a row** (M0 and M7), the 06:00, 09:00, 12:00 and 15:00 runs switch on (M8) and the time
+   since go-live is filled in by replay.
+3. After **60 good days in a row** with all five runs (M10), criterion 10 passes. The final live scorecard and the
+   live-against-backtest comparison are written, and the pre-registered calibration decision is taken. A bad day
+   restarts the count.
+
+`FORECAST.md` shows the current status line.
 
 ## Commands
 
@@ -72,7 +83,7 @@ reports/              error table, scorecards, completeness reports, milestone c
 ## Secrets (optional, GitHub → Settings → Secrets → Actions)
 
 - `HEALTHCHECKS_URL`: a healthchecks.io ping URL. It gets a heartbeat every hour and a `/fail` with the alert text, so it also catches runs that never start.
-- `KNMI_API_KEY`: a KNMI Data Platform key. Only needed after KNMI closes its script download at the end of 2026; the KNMI maximum is a reference series only.
+- `KNMI_API_KEY`: a KNMI Data Platform key. Without it, the KNMI reference series simply stops at the end of 2026 when KNMI closes its script download; nothing else depends on it.
 
 ## Data and attribution
 

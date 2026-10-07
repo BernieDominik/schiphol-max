@@ -11,10 +11,12 @@ from .store import RecordStore
 from .timeutil import day_bounds, from_ts, iso_z
 
 
-def completeness(cfg: Config, con: sqlite3.Connection, store: RecordStore, day: date, live_runs: list[str]) -> tuple[str, list[str]]:
-    """Markdown report for one Amsterdam day plus a list of problems."""
+def completeness(cfg: Config, con: sqlite3.Connection, store: RecordStore, day: date,
+                 live_runs: list[str]) -> tuple[str, list[str], list[str]]:
+    """Markdown report for one Amsterdam day, our collection problems (gaps we caused, which break the soak) and
+    warnings (gaps at the source: a report the airport never sent, KNMI's service closing)."""
     s, e = day_bounds(day)
-    problems, lines = [], [f"# Completeness {day.isoformat()}", ""]
+    problems, warnings, lines = [], [], [f"# Completeness {day.isoformat()}", ""]
 
     lines += ["## Model runs (exact-run archive)", "", "| Model | Expected | Stored | Not in archive | Missing |", "| --- | --- | --- | --- | --- |"]
     for name, spec in cfg.models.items():
@@ -31,7 +33,7 @@ def completeness(cfg: Config, con: sqlite3.Connection, store: RecordStore, day: 
     expected_reports = (e - s) // 1800
     lines += ["", f"Airport reports: {n_reports} of {expected_reports} half-hourly slots."]
     if n_reports < expected_reports - 4:
-        problems.append(f"airport reports: only {n_reports} of {expected_reports}")
+        warnings.append(f"airport reports: only {n_reports} of {expected_reports} (source side)")
 
     n_mosmix = con.execute("SELECT count(DISTINCT issue) FROM mosmix WHERE issue>=? AND issue<?", (s, e)).fetchone()[0]
     lines.append(f"MOSMIX runs: {n_mosmix} of 4.")
@@ -41,7 +43,7 @@ def completeness(cfg: Config, con: sqlite3.Connection, store: RecordStore, day: 
     last_knmi = con.execute("SELECT max(day) FROM knmi").fetchone()[0]
     lines.append(f"Latest KNMI daily value: {last_knmi}.")
     if last_knmi is None or date.fromisoformat(last_knmi) < day - timedelta(days=4):
-        problems.append(f"KNMI daily data stale (latest {last_knmi})")
+        warnings.append(f"KNMI daily data stale (latest {last_knmi}); reference series only")
 
     lines += ["", "## Scheduled forecast runs", "", "| Run | Issued | Status |", "| --- | --- | --- |"]
     for slot in slots_between(cfg, s - 1, e - 1, live_runs):
@@ -59,5 +61,6 @@ def completeness(cfg: Config, con: sqlite3.Connection, store: RecordStore, day: 
             problems.append(f"forecast {slot.run} {day} missing")
         lines.append(f"| {slot.run} | {iso_z(slot.ts)} | {status} |")
 
-    lines += ["", "## Problems", ""] + ([f"- {p}" for p in problems] or ["None."])
-    return "\n".join(lines) + "\n", problems
+    lines += ["", "## Problems (our collection)", ""] + ([f"- {p}" for p in problems] or ["None."])
+    lines += ["", "## Warnings (source side)", ""] + ([f"- {w}" for w in warnings] or ["None."])
+    return "\n".join(lines) + "\n", problems, warnings

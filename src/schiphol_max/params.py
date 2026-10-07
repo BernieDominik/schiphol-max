@@ -113,7 +113,11 @@ def refit(ctx, R: int) -> dict:
     corr = cfg["correction"]
     out = {"effective_from_utc": iso_z(R), "fitted_at_utc": datetime.now(UTC).strftime("%Y-%m-%dT%H:%M:%SZ"),
            "code_version": ctx.code_version, "variant": ctx.variant, "corrections": {}, "sigma": {},
-           "sameday": {}, "baselines": {}, "t_df": None, "disagreement": {}}
+           "sameday": {}, "baselines": {}, "t_df": None, "disagreement": {},
+           # Method settings travel with the parameters, so a re-run uses exactly what was in force.
+           "settings": {"blend_method": cfg["blend"]["method"], "distribution": cfg["calibration"]["distribution"],
+                        "disagreement_spread": bool(cfg["calibration"]["disagreement_spread"]),
+                        "spread_method": cfg["calibration"].get("spread_method", "season")}}
 
     # D1/D2: one correction per model and key, on all history known at R.
     for m in cfg.collect_models:

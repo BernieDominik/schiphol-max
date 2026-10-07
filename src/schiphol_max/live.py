@@ -46,11 +46,15 @@ def _collect(cfg: Config, j: Journal, now: datetime, state: dict) -> None:
 
 
 def tick(cfg: Config, now: datetime | None = None, dry_run: bool = False, collect: bool = True) -> int:
+    from . import milestones
+
     now = now or datetime.now(UTC)
     now_ts = to_ts(now)
     j = Journal(cfg)
     state = load_state(cfg)
-    live_runs = list(cfg["live"]["runs"])
+    ms = milestones.load(cfg)
+    cfg = milestones.apply_overrides(cfg, ms)
+    live_runs = milestones.effective_runs(cfg, ms)
     sch = cfg["schedule"]
     due = slots_between(cfg, now_ts - sch["catch_up_hours"] * 3600, now_ts, live_runs)
 
@@ -87,17 +91,19 @@ def tick(cfg: Config, now: datetime | None = None, dry_run: bool = False, collec
     if ctx is not None or any(day < today for _, day, _, _ in store.unsettled()):
         j.run("settle", settle, get_ctx(), now_ts, now_ts)
 
+    if ms.pop("refit_now", False):
+        j.run("refit (calibration decision)", refit, get_ctx(), now_ts)
+
     # Nightly: re-run yesterday's records from raw data and stored parameters; any difference is an alert.
+    yesterday = local_date(now_ts) - timedelta(days=1)
     nightly = [s for s in due if s.kind == "settle" and s.day == local_date(now_ts)]
-    marker = cfg.root / "data" / "state" / f"reproduced_{local_date(now_ts)}"
-    if nightly and not marker.exists():
+    if nightly and "reproduced" not in ms["days"].get(yesterday.isoformat(), {}):
         from .reproduce import reproduce_day
-        ok, diffs = j.run("reproduce", reproduce_day, get_ctx(), local_date(now_ts) - timedelta(days=1))
-        if ok and diffs:
-            j.alert(f"re-run differs from stored records: {diffs[:3]}")
+        ok, diffs = j.run("reproduce", reproduce_day, get_ctx(), yesterday)
         if ok:
-            marker.parent.mkdir(parents=True, exist_ok=True)
-            marker.write_text("ok\n")
+            milestones.note_day(ms, yesterday, reproduced="ok" if not diffs else f"{len(diffs)} differences")
+            if diffs:
+                j.alert(f"re-run differs from stored records: {diffs[:3]}")
 
     # Daily completeness report for yesterday (A6).
     if now.astimezone(AMS).hour >= 7:
@@ -109,9 +115,10 @@ def tick(cfg: Config, now: datetime | None = None, dry_run: bool = False, collec
             ok, out = j.run("completeness", completeness, cfg, con, RecordStore(cfg), day, live_runs)
             con.close()
             if ok:
-                text, problems = out
+                text, problems, warnings = out
                 path.parent.mkdir(parents=True, exist_ok=True)
                 path.write_text(text)
+                milestones.note_day(ms, day, collection_problems=len(problems), warnings=len(warnings))
                 if problems:
                     j.alert(f"completeness {day}: " + "; ".join(problems[:5]))
 
@@ -123,26 +130,25 @@ def tick(cfg: Config, now: datetime | None = None, dry_run: bool = False, collec
                 from .score import weekly_scorecard
                 j.run("scorecard", weekly_scorecard, cfg, path)
 
-    # Reminder: hand-entered Weather Underground values.
+    # Reminder: hand-entered Weather Underground values (only when they are the target).
     from .access import Data
     wu_from = date.fromisoformat(cfg["live"]["wu_from"])
-    if ctx is not None:
-        data = ctx.data
-    else:
-        data = None
+    data = ctx.data if ctx is not None else None
     remind_before = local_date(now_ts) - timedelta(days=cfg["target"]["wu_reminder_days"])
-    if remind_before >= wu_from:
+    if cfg["target"].get("live_source") == "wu" and remind_before >= wu_from:
         data = data or Data(cfg)
         missing = [d for d in (wu_from + timedelta(days=i) for i in range((remind_before - wu_from).days + 1)) if d not in data.wu]
         if missing:
             j.alert(f"Weather Underground maximum not entered for: {', '.join(d.isoformat() for d in missing[:10])}")
 
-    j.run("forecast page", write_forecast_page, cfg)
+    ok, status = j.run("milestones", milestones.advance, cfg, ms, now, get_ctx, lambda m: j.log("milestones", "note", m))
+    milestones.save(cfg, ms)
+    j.run("forecast page", write_forecast_page, cfg, status if ok else None)
     save_state(cfg, state)
     return j.finish()
 
 
-def write_forecast_page(cfg: Config) -> str:
+def write_forecast_page(cfg: Config, status: str | None = None) -> str:
     from .record import forecast_page
     base = cfg.records_dir / "forecasts"
     files = sorted(base.rglob("*.json"), key=lambda p: (p.parent, p.name))[-12:] if base.exists() else []
@@ -159,7 +165,7 @@ def write_forecast_page(cfg: Config) -> str:
     today = datetime.now(AMS).date().isoformat()
     upcoming = [newest[d] for d in sorted(newest) if d >= today][:2]
     outlook = [r for r in (latest_evening or {}).get("records", []) if r["lead"] >= 2]
-    page = forecast_page(upcoming, outlook)
+    page = forecast_page(upcoming, outlook, status)
     (cfg.root / "FORECAST.md").write_text(page)
     return f"{len(upcoming)} days"
 

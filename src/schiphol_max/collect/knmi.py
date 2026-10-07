@@ -41,7 +41,7 @@ def backfill_knmi(cfg: Config, http: Http, end: date, log=print) -> None:
             log(f"KNMI {s} → {e} stored")
 
 
-def collect_knmi_recent(cfg: Config, http: Http, today: date) -> None:
+def collect_knmi_recent(cfg: Config, http: Http, today: date) -> str | None:
     """Last 14 days once a day (values arrive 1–2 days late and may be revised for up to two weeks)."""
     if today < DAGGEGEVENS_CLOSES:
         try:
@@ -50,15 +50,15 @@ def collect_knmi_recent(cfg: Config, http: Http, today: date) -> None:
         except FetchError:
             if today < DAGGEGEVENS_CLOSES - timedelta(days=30):
                 raise
-    kdp_collect(cfg, http, today)
+    return kdp_collect(cfg, http, today)
 
 
-def kdp_collect(cfg: Config, http: Http, today: date) -> None:
+def kdp_collect(cfg: Config, http: Http, today: date) -> str | None:
     """KNMI Data Platform daily station data. Needs KNMI_API_KEY (a free key from developer.dataplatform.knmi.nl,
     or KNMI's published anonymous key). Stores the raw file listing and newest daily file metadata."""
     key = os.environ.get("KNMI_API_KEY")
     if not key:
-        raise FetchError("KNMI_API_KEY is not set; the daggegevens script service has closed")
+        return "skipped: KNMI's script download has closed and no KNMI_API_KEY is set (reference series only)"
     dataset, version = "daggegevens_knmi_stations", "1.0"  # verify name on the portal when switching
     r = http.get(KDP_URL.format(dataset=dataset, version=version),
                  {"maxKeys": 20, "orderBy": "created", "sorting": "desc"})

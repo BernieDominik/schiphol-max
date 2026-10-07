@@ -33,11 +33,11 @@ def summary_text(rec: dict) -> str:
     return "\n".join(lines)
 
 
-def forecast_page(latest: list[dict], outlook: list[dict]) -> str:
+def forecast_page(latest: list[dict], outlook: list[dict], status: str | None = None) -> str:
     """FORECAST.md: the newest forecast for each upcoming day."""
     out = ["# Schiphol daily maximum", "",
-           "Highest temperature of the Amsterdam day at Schiphol, in whole °C, as judged by the Weather Underground "
-           "history page. Probabilities are honest: outcomes rated near 30% happen about 30% of the time.", ""]
+           "Highest temperature of the Amsterdam day at Schiphol, in whole °C: the highest half-hourly airport report "
+           "(the figure the Weather Underground history page is built from). Each degree gets its own probability.", ""]
     for rec in latest:
         out += ["```", summary_text(rec), "```", ""]
     if outlook:
@@ -48,5 +48,7 @@ def forecast_page(latest: list[dict], outlook: list[dict]) -> str:
             out.append(f"| {d:%a %d %b} | {rec['top_degree']} °C | {round(rec['top_probability'] * 100)}% | "
                        f"{round((1 - rec['outside_table']) * 100)}% |")
         out.append("")
+    if status:
+        out += [f"**System status:** {status}", ""]
     out.append("Data: Open-Meteo (CC BY 4.0), KNMI, DWD, Iowa Environmental Mesonet, NOAA Aviation Weather Center.")
     return "\n".join(out) + "\n"

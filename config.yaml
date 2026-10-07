@@ -130,10 +130,14 @@ schedule:
 live:
   runs: [evening]
   chain_start: "2024-01-20"             # first target day of the official record chain
-  wu_from: "2026-10-08"                 # target days from here are settled on hand-entered WU values
+  go_live: "2026-10-07T18:30:00Z"       # from here, data counts as available no earlier than when we stored it (minus grace)
+  wu_from: "2026-10-08"                 # used only when target.live_source is "wu"
 
 target:
   history_from: "2012-01-01"            # genuine half-hourly airport reports in IEM start ~2012
+  # "rebuilt": the highest airport report of the Amsterdam day, settled automatically (decided 7 Oct 2026: no daily
+  # hand entry). "wu": hand-entered Weather Underground values from live.wu_from. Hand entries are always kept as checks.
+  live_source: rebuilt
   wu_max_gap_c: 2                       # entries further than this from the rebuilt value need --confirm
   wu_reminder_days: 2
 

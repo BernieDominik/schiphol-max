@@ -105,8 +105,12 @@ def mlpol_history(ctx: Ctx, key, issue: int, models: list[str]) -> list[tuple[di
 
 # ---------------------------------------------------------------- one target day
 
+BASE_SETTINGS = {"blend_method": "inverse_mae", "distribution": "normal", "disagreement_spread": False}
+
+
 def forecast_day(ctx: Ctx, run: str, lead: int, day: date, issue: int, P: dict) -> tuple[dict, list] | None:
     cfg, data, pairs = ctx.cfg, ctx.data, ctx.pairs
+    settings = {**BASE_SETTINGS, **(P.get("settings") or {})}
     key = (run, lead)
     ks = keystr(key)
     doy = day.timetuple().tm_yday
@@ -137,7 +141,7 @@ def forecast_day(ctx: Ctx, run: str, lead: int, day: date, issue: int, P: dict) 
 
     degraded = len(eligible) < cfg["blend"]["min_models"]
     pool = eligible or list(corrected)            # with no eligible model, fall back to every corrected model
-    if cfg["blend"]["method"] == "mlpol" and eligible:
+    if settings["blend_method"] == "mlpol" and eligible:
         weights = mlpol_weights(mlpol_history(ctx, key, issue, pool), pool)
     else:
         maes = model_maes(ctx, key, issue, pool, P)
@@ -168,11 +172,13 @@ def forecast_day(ctx: Ctx, run: str, lead: int, day: date, issue: int, P: dict) 
     sigma = srow["sigma"]
     disagreement = float(np.std([corrected[m] for m in weights])) if len(weights) > 1 else 0.0
     dis = P.get("disagreement", {}).get(ks)
-    if cal["disagreement_spread"] and dis:
+    if settings["disagreement_spread"] and dis:
         third = 0 if disagreement <= dis["edges"][0] else (1 if disagreement <= dis["edges"][1] else 2)
         sigma *= dis["factors"][third]
-    dist = cal["distribution"]
+    dist = settings["distribution"]
     df = (P.get("t_df_by_run") or {}).get(run, P.get("t_df")) if dist == "student_t" else None
+    if dist == "student_t" and not df:
+        dist = "normal"                     # tail weight not fitted yet: stay normal until the next refit
     probs = calibrate.degree_probabilities(mu, sigma, cal, dist=dist, df=df, max_so_far=mso)
     top = calibrate.top_degree(probs, mu)
     table, outside = calibrate.five_degree_table(probs, top, cal["decimals"])
