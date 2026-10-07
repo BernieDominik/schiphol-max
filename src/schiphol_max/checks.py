@@ -314,6 +314,13 @@ def write_m3(cfg: Config, ctx, log=print) -> None:
         else:
             rec = "keep in collection, review weight — raw error well above the best model; correction may rescue it"
         lines.append(f"| {m} | {r['days']} | {_f(r['mae'])} | {rec} |")
+    biased = [r for r in rows if r["lead"] == 1 and r["season"] == "all" and not r["source"].startswith(("baseline", "mosmix"))
+              and abs(r["bias"]) >= 1.0]
+    if biased:
+        lines += ["", "Systematic biases at lead 1 (raw forecast minus target), removed by each model's correction: " +
+                  "; ".join(f"{r['source']} {r['bias']:+.2f} °C" for r in biased) + ". HARMONIE runs about 2.4 °C warm in "
+                  "spring and summer and 1 °C warm in autumn at the Schiphol grid point, steadily from day to day, so it "
+                  "is a model property rather than a data error."]
     lines += ["", "Dropping a model from the blend never stops it being collected (separate `collect` and `blend` "
               "flags in `config.yaml`). Inverse-MAE weighting (E1) already gives weak models little weight.", "",
               "**Decision needed from the product owner:** confirm the list above (default: keep all eight)."]
