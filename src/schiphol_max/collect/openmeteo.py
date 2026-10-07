@@ -51,7 +51,7 @@ def have_single_run(cfg: Config, model: str, run_ts: int, include_unavailable: b
 def fetch_single_runs(cfg: Config, http: Http, run_ts: int, models: list[str]) -> dict[str, str]:
     """Fetch one run time for several models in one call; fall back to one call per model.
     Writes one raw file per model and run. Returns {model: 'ok'|'unavailable'|'exists'}."""
-    todo = [m for m in models if not have_single_run(cfg, m, run_ts)]
+    todo = [m for m in models if not have_single_run(cfg, m, run_ts, include_unavailable=False)]
     result = {m: "exists" for m in models if m not in todo}
     if not todo:
         return result
@@ -171,7 +171,8 @@ def catch_up_single_runs(cfg: Config, http: Http, now: datetime, latest: dict[st
         if m not in latest:
             continue
         for t in scheduled_runs(cfg, m, start, latest[m]):
-            if not have_single_run(cfg, m, t):
+            # Retry runs marked unavailable while they are recent: a run asked for before it was published is not missing.
+            if not have_single_run(cfg, m, t, include_unavailable=False):
                 by_time.setdefault(t, []).append(m)
     results = {}
     for t in sorted(by_time):

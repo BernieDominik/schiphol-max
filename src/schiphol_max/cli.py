@@ -52,7 +52,7 @@ def cmd_backfill(args) -> int:
             d += timedelta(days=1)
         _log("publish times stored")
     if what & {"all", "single"}:
-        end = to_ts(parse_iso(args.until)) if args.until else to_ts(datetime.now(UTC)) - 3 * 3600
+        end = to_ts(parse_iso(args.until)) if args.until else to_ts(datetime.now(UTC)) - 12 * 3600
         start = to_ts(parse_iso(args.single_from)) if args.single_from else 0
         openmeteo.backfill_single_runs(cfg, http, start, end, _log)
     _log("backfill done")

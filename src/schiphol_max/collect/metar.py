@@ -47,10 +47,10 @@ def backfill_iem(cfg: Config, http: Http, end: date, log=print) -> None:
 
 
 def collect_iem_recent(cfg: Config, http: Http, now: datetime | None = None) -> None:
-    """Last three UTC days, once per hour slot (used at settle and for the completeness report)."""
+    """The archive of record for the last three UTC days, once a day (AWC covers the hours in between)."""
     now = now or _now()
     end = now.date()
-    fetch_iem(cfg, http, end - timedelta(days=2), end, name=f"recent_{now:%Y%m%dT%H}")
+    fetch_iem(cfg, http, end - timedelta(days=2), end, name=f"recent_{now:%Y%m%d}")
 
 
 def collect_awc(cfg: Config, http: Http, now: datetime | None = None) -> None:

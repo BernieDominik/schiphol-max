@@ -26,10 +26,11 @@ def _collect(cfg: Config, j: Journal, now: datetime, state: dict) -> None:
     jobs = {
         "single_runs": lambda: openmeteo.catch_up_single_runs(cfg, http, now, latest or {}),
         "awc_metar": lambda: metar.collect_awc(cfg, http, now),
-        "iem_metar": lambda: metar.collect_iem_recent(cfg, http, now),
         "mosmix": lambda: mosmix.collect_mosmix(cfg, http),
         "publish_times": lambda: [openmeteo.collect_publish_times(cfg, http, now.date() - timedelta(days=k)) for k in (1, 2)],
     }
+    if local.hour >= 3:
+        jobs["iem_metar"] = lambda: metar.collect_iem_recent(cfg, http, now)
     if local.hour >= 7:
         jobs["knmi_daily"] = lambda: knmi.collect_knmi_recent(cfg, http, local.date())
     if local.hour >= 20:
