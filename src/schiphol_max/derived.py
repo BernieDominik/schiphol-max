@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS single_hourly(model TEXT, run INTEGER, valid INTEGER,
     PRIMARY KEY(model, run, valid)) WITHOUT ROWID;
 CREATE TABLE IF NOT EXISTS prev_hourly(model TEXT, valid INTEGER, n INTEGER, temp REAL, fetched_at INTEGER,
     PRIMARY KEY(model, valid, n)) WITHOUT ROWID;
-CREATE TABLE IF NOT EXISTS publish(model TEXT, run INTEGER, published INTEGER, source TEXT,
+CREATE TABLE IF NOT EXISTS publish(model TEXT, run INTEGER, published INTEGER, source TEXT, recorded_at INTEGER,
     PRIMARY KEY(model, run, source));
 CREATE TABLE IF NOT EXISTS metar(obs INTEGER, report TEXT, temp INTEGER, source TEXT, receipt INTEGER,
     first_seen INTEGER, PRIMARY KEY(obs, report));
@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS fetch_log(source TEXT, name TEXT, fetched_at INTEGER,
 TEMP_TOKEN = re.compile(r"^(M?\d\d)/(M?\d\d|//)?$")
 
 
-SCHEMA_VERSION = "2"
+SCHEMA_VERSION = "3"
 
 
 def connect(cfg: Config) -> sqlite3.Connection:
@@ -127,16 +127,18 @@ def _ingest_file(con: sqlite3.Connection, source_dir: str, path: Path, rel: str)
                            WHERE excluded.fetched_at >= prev_hourly.fetched_at""", rows)
     elif src == "publish_times":
         model = d["model"]
-        con.executemany("INSERT OR REPLACE INTO publish VALUES (?,?,?,?)",
-                        [(model, parse_ts(run), parse_ts(mod), "bucket") for run, mod in d["runs"].items()])
+        con.executemany("""INSERT INTO publish VALUES (?,?,?,?,?) ON CONFLICT(model, run, source) DO UPDATE SET
+                           recorded_at=min(publish.recorded_at, excluded.recorded_at)""",
+                        [(model, parse_ts(run), parse_ts(mod), "bucket", fetched) for run, mod in d["runs"].items()])
     elif src == "latest_runs":
         for item in d["models"]:
             if item.get("reference_time") and item.get("last_modified"):
                 run = parse_ts(item["reference_time"])
                 pub = _http_date(item["last_modified"])
-                con.execute("""INSERT INTO publish VALUES (?,?,?,?) ON CONFLICT(model, run, source)
-                               DO UPDATE SET published=min(published, excluded.published)""",
-                            (item["model"], run, pub, "latest"))
+                con.execute("""INSERT INTO publish VALUES (?,?,?,?,?) ON CONFLICT(model, run, source)
+                               DO UPDATE SET published=min(published, excluded.published),
+                                             recorded_at=min(recorded_at, excluded.recorded_at)""",
+                            (item["model"], run, pub, "latest", fetched))
     elif src == "iem_metar":
         rows = []
         for line in d["body"].splitlines()[1:]:

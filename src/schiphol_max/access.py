@@ -81,8 +81,11 @@ class Data:
     # ------------------------------------------------------------ loading
 
     def _load_publish(self, con) -> None:
+        # Exact publish times and the delay table are frozen at go-live: only what we had recorded before then is
+        # used. Learning a run's exact publish time later must not change the inputs of a forecast already made.
         self.published: dict[tuple[str, int], int] = {}
-        for model, run, pub in con.execute("SELECT model, run, min(published) FROM publish GROUP BY model, run"):
+        for model, run, pub in con.execute("SELECT model, run, min(published) FROM publish WHERE recorded_at < ? "
+                                           "GROUP BY model, run", (self.go_live,)):
             self.published[(model, run)] = pub
         # 95th-percentile publishing delay per model and run hour, from measured publish times.
         self.delay: dict[tuple[str, int], int] = {}
