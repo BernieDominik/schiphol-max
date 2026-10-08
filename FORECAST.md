@@ -15,27 +15,27 @@ Chance of a miss of 2 °C or more against the standard forecast: 16% (typical 17
 ```
 
 ```
-Fri 9 Oct, issued Wed 21:00
-   15 °C   2%
-   16 °C  15%
-   17 °C  42%   most likely
-   18 °C  32%
-   19 °C   7%
+Fri 9 Oct, issued Thu 21:00
+   16 °C   7%
+   17 °C  38%
+   18 °C  43%   most likely
+   19 °C  10%
+   20 °C   0%
   other    1%
-Standard forecast 17 °C: 40% chance the maximum is higher, 17% lower.
-Chance of a miss of 2 °C or more against the standard forecast: 10% (typical 24%).
+Standard forecast 17 °C: 54% chance the maximum is higher, 8% lower.
+Chance of a miss of 2 °C or more against the standard forecast: 12% (typical 18%).
 ```
 
 ## Next days (evening run)
 
 | Day | Most likely | Probability | Five listed degrees cover |
 | --- | --- | --- | --- |
-| Fri 09 Oct | 17 °C | 42% | 99% |
-| Sat 10 Oct | 15 °C | 40% | 98% |
-| Sun 11 Oct | 15 °C | 34% | 97% |
-| Mon 12 Oct | 17 °C | 29% | 94% |
-| Tue 13 Oct | 17 °C | 25% | 89% |
-| Wed 14 Oct | 19 °C | 15% | 64% |
+| Sat 10 Oct | 15 °C | 45% | 99% |
+| Sun 11 Oct | 15 °C | 39% | 98% |
+| Mon 12 Oct | 17 °C | 35% | 97% |
+| Tue 13 Oct | 18 °C | 31% | 95% |
+| Wed 14 Oct | 19 °C | 25% | 89% |
+| Thu 15 Oct | 19 °C | 14% | 64% |
 
 **System status:** Live since 2026-10-07: evening run on; same-day runs switch on after 7 clean days (0/7).
 
