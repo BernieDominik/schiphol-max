@@ -148,3 +148,23 @@
 {"ts": "2026-10-08T06:28:16Z", "job": "milestones", "event": "success", "detail": "Live since 2026-10-07: evening run on; same-day runs switch on after 7 clean days (0/7)."}
 {"ts": "2026-10-08T06:28:16Z", "job": "forecast page", "event": "start", "detail": ""}
 {"ts": "2026-10-08T06:28:16Z", "job": "forecast page", "event": "success", "detail": "2 days"}
+{"ts": "2026-10-08T15:38:51Z", "job": "latest_runs", "event": "start", "detail": ""}
+{"ts": "2026-10-08T15:38:52Z", "job": "latest_runs", "event": "success", "detail": "{'ifs_hres': 1791439200, 'aifs_single': 1791439200, 'harmonie_nl': 1791460800, 'icon_d2': 1791460800, 'icon_eu': 1791460800, 'gfs': 1791439200, 'ukmo_global': 1791439200, 'arpege_europe': 1791460800}"}
+{"ts": "2026-10-08T15:38:52Z", "job": "single_runs", "event": "start", "detail": ""}
+{"ts": "2026-10-08T15:38:55Z", "job": "single_runs", "event": "success", "detail": "{'2026-10-08T00:00:00Z': {'ukmo_global': 'ok'}, '2026-10-08T06:00:00Z': {'ifs_hres': 'ok', 'aifs_single': 'ok', 'harmonie_nl': 'ok', 'icon_d2': 'ok', 'icon_eu': 'ok', 'gfs': 'ok', 'ukmo_global': 'ok', 'arpege_europe': 'ok'}, '2026-10-08T09:00:00Z': {'harmonie_nl': 'ok', 'icon_d2': 'ok', 'icon_eu': 'ok'}, '2026-10-08T12:00:00Z': {'harmonie_nl': 'ok', 'icon_d2': 'ok', 'icon_eu': 'ok', 'arpege_europe': 'ok'}}"}
+{"ts": "2026-10-08T15:38:55Z", "job": "awc_metar", "event": "start", "detail": ""}
+{"ts": "2026-10-08T15:38:55Z", "job": "awc_metar", "event": "success", "detail": ""}
+{"ts": "2026-10-08T15:38:55Z", "job": "mosmix", "event": "start", "detail": ""}
+{"ts": "2026-10-08T15:38:57Z", "job": "mosmix", "event": "success", "detail": "['2026100809']"}
+{"ts": "2026-10-08T15:38:57Z", "job": "publish_times", "event": "start", "detail": ""}
+{"ts": "2026-10-08T15:38:57Z", "job": "publish_times", "event": "success", "detail": "[None, None]"}
+{"ts": "2026-10-08T15:38:57Z", "job": "iem_metar", "event": "start", "detail": ""}
+{"ts": "2026-10-08T15:38:57Z", "job": "iem_metar", "event": "success", "detail": ""}
+{"ts": "2026-10-08T15:38:57Z", "job": "knmi_daily", "event": "start", "detail": ""}
+{"ts": "2026-10-08T15:38:57Z", "job": "knmi_daily", "event": "success", "detail": ""}
+{"ts": "2026-10-08T15:38:57Z", "job": "ingest", "event": "start", "detail": ""}
+{"ts": "2026-10-08T15:38:58Z", "job": "ingest", "event": "success", "detail": "19"}
+{"ts": "2026-10-08T15:39:03Z", "job": "milestones", "event": "start", "detail": ""}
+{"ts": "2026-10-08T15:39:03Z", "job": "milestones", "event": "success", "detail": "Live since 2026-10-07: evening run on; same-day runs switch on after 7 clean days (0/7)."}
+{"ts": "2026-10-08T15:39:03Z", "job": "forecast page", "event": "start", "detail": ""}
+{"ts": "2026-10-08T15:39:03Z", "job": "forecast page", "event": "success", "detail": "2 days"}
