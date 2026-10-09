@@ -7,6 +7,9 @@
    "collection_problems": 1,
    "reproduced": "1 differences",
    "warnings": 0
+  },
+  "2026-10-08": {
+   "reproduced": "ok"
   }
  },
  "events": [],
