@@ -10,7 +10,10 @@ and the two degrees either side, each with an honest probability. It runs the ev
 
 ## How it runs
 
-There is no server. GitHub Actions runs `smax tick` every hour (`.github/workflows/tick.yml`). Each run:
+There is no server. Every hour at :02, cron-job.org calls GitHub's "run workflow" API (with a fine-grained token that
+can only start this repository's workflows), and GitHub Actions runs `smax tick` (`.github/workflows/tick.yml`).
+GitHub's own schedule (:17 and :47) is a backup only, because GitHub's scheduler has been unreliable since August
+2026. A repeated run changes nothing. Each run:
 
 1. collects whatever is new: model runs (Open-Meteo Single Runs archive), airport reports (NOAA AWC, IEM),
    KNMI daily data, DWD MOSMIX, the ECMWF ensemble, and when each model run was published;
