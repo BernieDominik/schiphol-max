@@ -15,27 +15,27 @@ Chance of a miss of 2 °C or more against the standard forecast: 24% (typical 18
 ```
 
 ```
-Sun 11 Oct, issued Fri 21:00
-   13 °C   9%
-   14 °C  36%
-   15 °C  40%   most likely
-   16 °C  13%
+Sun 11 Oct, issued Sat 21:00
+   13 °C   4%
+   14 °C  30%
+   15 °C  48%   most likely
+   16 °C  16%
    17 °C   1%
-  other    2%
-Standard forecast 14 °C: 55% chance the maximum is higher, 10% lower.
-Chance of a miss of 2 °C or more against the standard forecast: 15% (typical 24%).
+  other    1%
+Standard forecast 14 °C: 66% chance the maximum is higher, 4% lower.
+Chance of a miss of 2 °C or more against the standard forecast: 18% (typical 18%).
 ```
 
 ## Next days (evening run)
 
 | Day | Most likely | Probability | Five listed degrees cover |
 | --- | --- | --- | --- |
-| Sun 11 Oct | 15 °C | 40% | 98% |
-| Mon 12 Oct | 17 °C | 40% | 98% |
-| Tue 13 Oct | 19 °C | 34% | 97% |
-| Wed 14 Oct | 19 °C | 29% | 93% |
-| Thu 15 Oct | 19 °C | 25% | 89% |
-| Fri 16 Oct | 18 °C | 14% | 64% |
+| Mon 12 Oct | 17 °C | 41% | 98% |
+| Tue 13 Oct | 19 °C | 40% | 98% |
+| Wed 14 Oct | 18 °C | 34% | 97% |
+| Thu 15 Oct | 20 °C | 29% | 94% |
+| Fri 16 Oct | 18 °C | 25% | 88% |
+| Sat 17 Oct | 17 °C | 15% | 64% |
 
 **System status:** Live since 2026-10-07: evening run on; same-day runs switch on after 7 clean days (0/7).
 
