@@ -17,6 +17,9 @@
    "collection_problems": 1,
    "reproduced": "ok",
    "warnings": 0
+  },
+  "2026-10-10": {
+   "reproduced": "ok"
   }
  },
  "events": [],
