@@ -922,3 +922,25 @@
 {"ts": "2026-10-11T01:56:08Z", "job": "milestones", "event": "success", "detail": "Live since 2026-10-07: evening run on; same-day runs switch on after 7 clean days (0/7)."}
 {"ts": "2026-10-11T01:56:08Z", "job": "forecast page", "event": "start", "detail": ""}
 {"ts": "2026-10-11T01:56:08Z", "job": "forecast page", "event": "success", "detail": "2 days"}
+{"ts": "2026-10-11T02:02:32Z", "job": "latest_runs", "event": "start", "detail": ""}
+{"ts": "2026-10-11T02:02:32Z", "job": "latest_runs", "event": "success", "detail": "{'ifs_hres': 1791655200, 'aifs_single': 1791655200, 'harmonie_nl': 1791666000, 'icon_d2': 1791676800, 'icon_eu': 1791666000, 'gfs': 1791655200, 'ukmo_global': 1791655200, 'arpege_europe': 1791655200}"}
+{"ts": "2026-10-11T02:02:32Z", "job": "single_runs", "event": "start", "detail": ""}
+{"ts": "2026-10-11T02:02:32Z", "job": "single_runs", "event": "success", "detail": "{}"}
+{"ts": "2026-10-11T02:02:32Z", "job": "awc_metar", "event": "start", "detail": ""}
+{"ts": "2026-10-11T02:02:33Z", "job": "awc_metar", "event": "success", "detail": ""}
+{"ts": "2026-10-11T02:02:33Z", "job": "mosmix", "event": "start", "detail": ""}
+{"ts": "2026-10-11T02:02:34Z", "job": "mosmix", "event": "success", "detail": "[]"}
+{"ts": "2026-10-11T02:02:34Z", "job": "publish_times", "event": "start", "detail": ""}
+{"ts": "2026-10-11T02:02:34Z", "job": "publish_times", "event": "success", "detail": "[None, None]"}
+{"ts": "2026-10-11T02:02:34Z", "job": "iem_metar", "event": "start", "detail": ""}
+{"ts": "2026-10-11T02:02:34Z", "job": "iem_metar", "event": "success", "detail": ""}
+{"ts": "2026-10-11T02:02:34Z", "job": "ingest", "event": "start", "detail": ""}
+{"ts": "2026-10-11T02:02:35Z", "job": "ingest", "event": "success", "detail": "2"}
+{"ts": "2026-10-11T02:02:45Z", "job": "refit 2026-10-11", "event": "start", "detail": ""}
+{"ts": "2026-10-11T02:02:56Z", "job": "refit 2026-10-11", "event": "success", "detail": "{'effective_from_utc': '2026-10-11T02:00:00Z', 'fitted_at_utc': '2026-10-11T02:02:45Z', 'code_version': 'f0ba2b2', 'variant': 'official', 'corrections': {'ifs_hres': {'evening_l1': {'a': 0.888003, 'b': 0.980629, 'c': -0.042415, 'e': -0.329599, 'n': 940, 'seasonal': True}, 'evening_l2': {'a': 0.920781, 'b': 0.979947, 'c': -0.046047, 'e': -0.356836, 'n': 939, 'seasonal': True}, 'evening_l3': {'a': 1.367725, 'b': 0.949497, 'c': -0.072089, 'e': -0.488482, 'n': 938, 'seasonal': True}, 'evening_l4': {"}
+{"ts": "2026-10-11T02:02:56Z", "job": "settle", "event": "start", "detail": ""}
+{"ts": "2026-10-11T02:02:56Z", "job": "settle", "event": "success", "detail": "0"}
+{"ts": "2026-10-11T02:02:56Z", "job": "milestones", "event": "start", "detail": ""}
+{"ts": "2026-10-11T02:02:56Z", "job": "milestones", "event": "success", "detail": "Live since 2026-10-07: evening run on; same-day runs switch on after 7 clean days (0/7)."}
+{"ts": "2026-10-11T02:02:56Z", "job": "forecast page", "event": "start", "detail": ""}
+{"ts": "2026-10-11T02:02:56Z", "job": "forecast page", "event": "success", "detail": "2 days"}
