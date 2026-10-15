@@ -3458,3 +3458,19 @@
 {"ts": "2026-10-15T00:02:37Z", "job": "milestones", "event": "success", "detail": "Live since 2026-10-07: evening run on; same-day runs switch on after 7 clean days (0/7)."}
 {"ts": "2026-10-15T00:02:37Z", "job": "forecast page", "event": "start", "detail": ""}
 {"ts": "2026-10-15T00:02:37Z", "job": "forecast page", "event": "success", "detail": "2 days"}
+{"ts": "2026-10-15T00:08:02Z", "job": "latest_runs", "event": "start", "detail": ""}
+{"ts": "2026-10-15T00:08:03Z", "job": "latest_runs", "event": "success", "detail": "{'ifs_hres': 1792000800, 'aifs_single': 1792000800, 'harmonie_nl': 1792011600, 'icon_d2': 1792011600, 'icon_eu': 1792011600, 'gfs': 1792000800, 'ukmo_global': 1791979200, 'arpege_europe': 1792000800}"}
+{"ts": "2026-10-15T00:08:03Z", "job": "single_runs", "event": "start", "detail": ""}
+{"ts": "2026-10-15T00:08:03Z", "job": "single_runs", "event": "success", "detail": "{}"}
+{"ts": "2026-10-15T00:08:03Z", "job": "awc_metar", "event": "start", "detail": ""}
+{"ts": "2026-10-15T00:08:09Z", "job": "awc_metar", "event": "success", "detail": ""}
+{"ts": "2026-10-15T00:08:09Z", "job": "mosmix", "event": "start", "detail": ""}
+{"ts": "2026-10-15T00:08:09Z", "job": "mosmix", "event": "success", "detail": "[]"}
+{"ts": "2026-10-15T00:08:09Z", "job": "publish_times", "event": "start", "detail": ""}
+{"ts": "2026-10-15T00:08:09Z", "job": "publish_times", "event": "success", "detail": "[None, None]"}
+{"ts": "2026-10-15T00:08:09Z", "job": "ingest", "event": "start", "detail": ""}
+{"ts": "2026-10-15T00:08:11Z", "job": "ingest", "event": "success", "detail": "2"}
+{"ts": "2026-10-15T00:08:15Z", "job": "milestones", "event": "start", "detail": ""}
+{"ts": "2026-10-15T00:08:15Z", "job": "milestones", "event": "success", "detail": "Live since 2026-10-07: evening run on; same-day runs switch on after 7 clean days (0/7)."}
+{"ts": "2026-10-15T00:08:15Z", "job": "forecast page", "event": "start", "detail": ""}
+{"ts": "2026-10-15T00:08:15Z", "job": "forecast page", "event": "success", "detail": "2 days"}
