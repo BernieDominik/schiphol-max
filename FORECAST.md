@@ -37,6 +37,6 @@ Chance of a miss of 2 °C or more against the standard forecast: 12% (typical 24
 | Wed 21 Oct | 15 °C | 23% | 86% |
 | Thu 22 Oct | 16 °C | 14% | 64% |
 
-**System status:** Live since 2026-10-07: evening run on; same-day runs switch on after 7 clean days (0/7).
+**System status:** Live since 2026-10-07: evening run on; same-day runs switch on after 7 clean days (6/7).
 
 Data: Open-Meteo (CC BY 4.0), KNMI, DWD, Iowa Environmental Mesonet, NOAA Aviation Weather Center.

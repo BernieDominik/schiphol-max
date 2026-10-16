@@ -44,7 +44,9 @@
    "warnings": 0
   },
   "2026-10-15": {
-   "reproduced": "ok"
+   "collection_problems": 0,
+   "reproduced": "ok",
+   "warnings": 0
   }
  },
  "events": [],
@@ -53,5 +55,5 @@
  "same_day_from": null,
  "soak_passed": null,
  "soak_start": null,
- "streak": 0
+ "streak": 6
 }
