@@ -4752,3 +4752,25 @@
 {"ts": "2026-10-16T21:02:34Z", "job": "milestones", "event": "success", "detail": "Live since 2026-10-07: evening run on; same-day runs switch on after 7 clean days (6/7)."}
 {"ts": "2026-10-16T21:02:34Z", "job": "forecast page", "event": "start", "detail": ""}
 {"ts": "2026-10-16T21:02:34Z", "job": "forecast page", "event": "success", "detail": "2 days"}
+{"ts": "2026-10-16T21:11:51Z", "job": "latest_runs", "event": "start", "detail": ""}
+{"ts": "2026-10-16T21:11:52Z", "job": "latest_runs", "event": "success", "detail": "{'ifs_hres': 1792152000, 'aifs_single': 1792152000, 'harmonie_nl': 1792173600, 'icon_d2': 1792173600, 'icon_eu': 1792162800, 'gfs': 1792152000, 'ukmo_global': 1792130400, 'arpege_europe': 1792152000}"}
+{"ts": "2026-10-16T21:11:52Z", "job": "single_runs", "event": "start", "detail": ""}
+{"ts": "2026-10-16T21:11:52Z", "job": "single_runs", "event": "success", "detail": "{}"}
+{"ts": "2026-10-16T21:11:52Z", "job": "awc_metar", "event": "start", "detail": ""}
+{"ts": "2026-10-16T21:11:52Z", "job": "awc_metar", "event": "success", "detail": ""}
+{"ts": "2026-10-16T21:11:52Z", "job": "mosmix", "event": "start", "detail": ""}
+{"ts": "2026-10-16T21:11:53Z", "job": "mosmix", "event": "success", "detail": "[]"}
+{"ts": "2026-10-16T21:11:53Z", "job": "publish_times", "event": "start", "detail": ""}
+{"ts": "2026-10-16T21:11:53Z", "job": "publish_times", "event": "success", "detail": "[None, None]"}
+{"ts": "2026-10-16T21:11:53Z", "job": "iem_metar", "event": "start", "detail": ""}
+{"ts": "2026-10-16T21:11:53Z", "job": "iem_metar", "event": "success", "detail": ""}
+{"ts": "2026-10-16T21:11:53Z", "job": "knmi_daily", "event": "start", "detail": ""}
+{"ts": "2026-10-16T21:11:53Z", "job": "knmi_daily", "event": "success", "detail": ""}
+{"ts": "2026-10-16T21:11:53Z", "job": "ensemble", "event": "start", "detail": ""}
+{"ts": "2026-10-16T21:11:53Z", "job": "ensemble", "event": "success", "detail": ""}
+{"ts": "2026-10-16T21:11:53Z", "job": "ingest", "event": "start", "detail": ""}
+{"ts": "2026-10-16T21:11:54Z", "job": "ingest", "event": "success", "detail": "2"}
+{"ts": "2026-10-16T21:12:00Z", "job": "milestones", "event": "start", "detail": ""}
+{"ts": "2026-10-16T21:12:00Z", "job": "milestones", "event": "success", "detail": "Live since 2026-10-07: evening run on; same-day runs switch on after 7 clean days (6/7)."}
+{"ts": "2026-10-16T21:12:00Z", "job": "forecast page", "event": "start", "detail": ""}
+{"ts": "2026-10-16T21:12:00Z", "job": "forecast page", "event": "success", "detail": "2 days"}
