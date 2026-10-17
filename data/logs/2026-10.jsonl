@@ -4898,3 +4898,21 @@
 {"ts": "2026-10-17T02:02:36Z", "job": "milestones", "event": "success", "detail": "Live since 2026-10-07: evening run on; same-day runs switch on after 7 clean days (0/7)."}
 {"ts": "2026-10-17T02:02:36Z", "job": "forecast page", "event": "start", "detail": ""}
 {"ts": "2026-10-17T02:02:36Z", "job": "forecast page", "event": "success", "detail": "2 days"}
+{"ts": "2026-10-17T03:02:30Z", "job": "latest_runs", "event": "start", "detail": ""}
+{"ts": "2026-10-17T03:02:31Z", "job": "latest_runs", "event": "success", "detail": "{'ifs_hres': 1792173600, 'aifs_single': 1792173600, 'harmonie_nl': 1792195200, 'icon_d2': 1792195200, 'icon_eu': 1792184400, 'gfs': 1792173600, 'ukmo_global': 1792173600, 'arpege_europe': 1792173600}"}
+{"ts": "2026-10-17T03:02:31Z", "job": "single_runs", "event": "start", "detail": ""}
+{"ts": "2026-10-17T03:02:32Z", "job": "single_runs", "event": "success", "detail": "{'2026-10-16T18:00:00Z': {'ukmo_global': 'ok'}, '2026-10-17T00:00:00Z': {'harmonie_nl': 'ok'}}"}
+{"ts": "2026-10-17T03:02:32Z", "job": "awc_metar", "event": "start", "detail": ""}
+{"ts": "2026-10-17T03:02:32Z", "job": "awc_metar", "event": "success", "detail": ""}
+{"ts": "2026-10-17T03:02:32Z", "job": "mosmix", "event": "start", "detail": ""}
+{"ts": "2026-10-17T03:02:33Z", "job": "mosmix", "event": "success", "detail": "[]"}
+{"ts": "2026-10-17T03:02:33Z", "job": "publish_times", "event": "start", "detail": ""}
+{"ts": "2026-10-17T03:02:33Z", "job": "publish_times", "event": "success", "detail": "[None, None]"}
+{"ts": "2026-10-17T03:02:33Z", "job": "iem_metar", "event": "start", "detail": ""}
+{"ts": "2026-10-17T03:02:33Z", "job": "iem_metar", "event": "success", "detail": ""}
+{"ts": "2026-10-17T03:02:33Z", "job": "ingest", "event": "start", "detail": ""}
+{"ts": "2026-10-17T03:02:34Z", "job": "ingest", "event": "success", "detail": "4"}
+{"ts": "2026-10-17T03:02:39Z", "job": "milestones", "event": "start", "detail": ""}
+{"ts": "2026-10-17T03:02:39Z", "job": "milestones", "event": "success", "detail": "Live since 2026-10-07: evening run on; same-day runs switch on after 7 clean days (0/7)."}
+{"ts": "2026-10-17T03:02:39Z", "job": "forecast page", "event": "start", "detail": ""}
+{"ts": "2026-10-17T03:02:39Z", "job": "forecast page", "event": "success", "detail": "2 days"}
