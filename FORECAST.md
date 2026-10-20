@@ -38,6 +38,6 @@ Chance of a miss of 2 °C or more against the standard forecast: 26% (typical 24
 | Sun 25 Oct | 15 °C | 23% | 86% |
 | Mon 26 Oct | 15 °C | 14% | 64% |
 
-**System status:** All runs live since 2026-10-17. 60-day soak: 0/60 clean days in a row.
+**System status:** All runs live since 2026-10-17. 60-day soak: 2/60 clean days in a row.
 
 Data: Open-Meteo (CC BY 4.0), KNMI, DWD, Iowa Environmental Mesonet, NOAA Aviation Weather Center.
