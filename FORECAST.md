@@ -3,15 +3,16 @@
 Highest temperature of the Amsterdam day at Schiphol, in whole °C: the highest half-hourly airport report (the figure the Weather Underground history page is built from). Each degree gets its own probability.
 
 ```
-Wed 21 Oct, issued Tue 21:00
-   11 °C   3%
-   12 °C  28%
-   13 °C  49%   most likely
-   14 °C  17%
-   15 °C   1%
+Wed 21 Oct, issued Wed 06:00
+   11 °C   0%
+   12 °C  22%
+   13 °C  48%   most likely
+   14 °C  26%
+   15 °C   3%
   other    1%
-Standard forecast 12 °C: 68% chance the maximum is higher, 4% lower.
-Chance of a miss of 2 °C or more against the standard forecast: 19% (typical 17%).
+Maximum so far today: 12 °C.
+Standard forecast 12 °C: 78% chance the maximum is higher, 0% lower.
+Chance of a miss of 2 °C or more against the standard forecast: 29% (typical 20%).
 ```
 
 ```
