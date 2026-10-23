@@ -3,16 +3,16 @@
 Highest temperature of the Amsterdam day at Schiphol, in whole °C: the highest half-hourly airport report (the figure the Weather Underground history page is built from). Each degree gets its own probability.
 
 ```
-Fri 23 Oct, issued Fri 12:00
-   12 °C   7%
-   13 °C  40%
-   14 °C  43%   most likely
-   15 °C   9%
-   16 °C   0%
+Fri 23 Oct, issued Fri 15:00
+   11 °C   0%
+   12 °C   0%
+   13 °C  76%   most likely
+   14 °C  23%
+   15 °C   0%
   other    1%
-Maximum so far today: 12 °C.
-Standard forecast 13 °C: 53% chance the maximum is higher, 7% lower.
-Chance of a miss of 2 °C or more against the standard forecast: 10% (typical 14%).
+Maximum so far today: 13 °C.
+Standard forecast 13 °C: 24% chance the maximum is higher, 0% lower.
+Chance of a miss of 2 °C or more against the standard forecast: 1% (typical 4%).
 ```
 
 ```
