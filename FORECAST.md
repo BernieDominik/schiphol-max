@@ -16,27 +16,27 @@ Chance of a miss of 2 °C or more against the standard forecast: 1% (typical 4%)
 ```
 
 ```
-Sat 24 Oct, issued Thu 21:00
+Sat 24 Oct, issued Fri 21:00
    11 °C   1%
-   12 °C  12%
-   13 °C  39%   most likely
-   14 °C  37%
-   15 °C  10%
-  other    2%
-Standard forecast 13 °C: 48% chance the maximum is higher, 13% lower.
-Chance of a miss of 2 °C or more against the standard forecast: 12% (typical 24%).
+   12 °C  19%
+   13 °C  50%   most likely
+   14 °C  27%
+   15 °C   3%
+  other    1%
+Standard forecast 13 °C: 30% chance the maximum is higher, 20% lower.
+Chance of a miss of 2 °C or more against the standard forecast: 5% (typical 17%).
 ```
 
 ## Next days (evening run)
 
 | Day | Most likely | Probability | Five listed degrees cover |
 | --- | --- | --- | --- |
-| Sat 24 Oct | 13 °C | 39% | 98% |
-| Sun 25 Oct | 14 °C | 36% | 97% |
-| Mon 26 Oct | 15 °C | 31% | 95% |
-| Tue 27 Oct | 17 °C | 28% | 92% |
-| Wed 28 Oct | 16 °C | 23% | 85% |
-| Thu 29 Oct | 16 °C | 14% | 64% |
+| Sun 25 Oct | 14 °C | 45% | 99% |
+| Mon 26 Oct | 14 °C | 39% | 98% |
+| Tue 27 Oct | 18 °C | 31% | 95% |
+| Wed 28 Oct | 15 °C | 28% | 92% |
+| Thu 29 Oct | 15 °C | 23% | 85% |
+| Fri 30 Oct | 16 °C | 14% | 64% |
 
 **System status:** All runs live since 2026-10-17. 60-day soak: 1/60 clean days in a row.
 
