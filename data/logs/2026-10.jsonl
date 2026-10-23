@@ -9538,3 +9538,23 @@
 {"ts": "2026-10-23T15:02:38Z", "job": "milestones", "event": "success", "detail": "All runs live since 2026-10-17. 60-day soak: 1/60 clean days in a row."}
 {"ts": "2026-10-23T15:02:38Z", "job": "forecast page", "event": "start", "detail": ""}
 {"ts": "2026-10-23T15:02:38Z", "job": "forecast page", "event": "success", "detail": "2 days"}
+{"ts": "2026-10-23T15:06:30Z", "job": "latest_runs", "event": "start", "detail": ""}
+{"ts": "2026-10-23T15:06:31Z", "job": "latest_runs", "event": "success", "detail": "{'ifs_hres': 1792735200, 'aifs_single': 1792735200, 'harmonie_nl': 1792756800, 'icon_d2': 1792756800, 'icon_eu': 1792746000, 'gfs': 1792735200, 'ukmo_global': 1792735200, 'arpege_europe': 1792735200}"}
+{"ts": "2026-10-23T15:06:31Z", "job": "single_runs", "event": "start", "detail": ""}
+{"ts": "2026-10-23T15:06:31Z", "job": "single_runs", "event": "success", "detail": "{'2026-10-21T18:00:00Z': {'gfs': 'unavailable'}}"}
+{"ts": "2026-10-23T15:06:31Z", "job": "awc_metar", "event": "start", "detail": ""}
+{"ts": "2026-10-23T15:06:32Z", "job": "awc_metar", "event": "success", "detail": ""}
+{"ts": "2026-10-23T15:06:32Z", "job": "mosmix", "event": "start", "detail": ""}
+{"ts": "2026-10-23T15:06:33Z", "job": "mosmix", "event": "success", "detail": "[]"}
+{"ts": "2026-10-23T15:06:33Z", "job": "publish_times", "event": "start", "detail": ""}
+{"ts": "2026-10-23T15:06:33Z", "job": "publish_times", "event": "success", "detail": "[None, None]"}
+{"ts": "2026-10-23T15:06:33Z", "job": "iem_metar", "event": "start", "detail": ""}
+{"ts": "2026-10-23T15:06:33Z", "job": "iem_metar", "event": "success", "detail": ""}
+{"ts": "2026-10-23T15:06:33Z", "job": "knmi_daily", "event": "start", "detail": ""}
+{"ts": "2026-10-23T15:06:33Z", "job": "knmi_daily", "event": "success", "detail": ""}
+{"ts": "2026-10-23T15:06:33Z", "job": "ingest", "event": "start", "detail": ""}
+{"ts": "2026-10-23T15:06:34Z", "job": "ingest", "event": "success", "detail": "2"}
+{"ts": "2026-10-23T15:06:39Z", "job": "milestones", "event": "start", "detail": ""}
+{"ts": "2026-10-23T15:06:39Z", "job": "milestones", "event": "success", "detail": "All runs live since 2026-10-17. 60-day soak: 1/60 clean days in a row."}
+{"ts": "2026-10-23T15:06:39Z", "job": "forecast page", "event": "start", "detail": ""}
+{"ts": "2026-10-23T15:06:39Z", "job": "forecast page", "event": "success", "detail": "2 days"}
