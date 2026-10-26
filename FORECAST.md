@@ -38,6 +38,6 @@ Chance of a miss of 2 °C or more against the standard forecast: 15% (typical 24
 | Sat 31 Oct | 14 °C | 22% | 84% |
 | Sun 01 Nov | 14 °C | 14% | 63% |
 
-**System status:** All runs live since 2026-10-17. 60-day soak: 4/60 clean days in a row.
+**System status:** All runs live since 2026-10-17. 60-day soak: 8/60 clean days in a row.
 
 Data: Open-Meteo (CC BY 4.0), KNMI, DWD, Iowa Environmental Mesonet, NOAA Aviation Weather Center.
