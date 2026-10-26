@@ -24,10 +24,16 @@ def completeness(cfg: Config, con: sqlite3.Connection, store: RecordStore, day: 
         rows = dict(con.execute("SELECT run, status FROM single_run WHERE model=? AND run>=? AND run<?", (name, s, e)).fetchall())
         ok = sum(1 for t in expected if rows.get(t) == "ok")
         unavailable = sum(1 for t in expected if rows.get(t) == "unavailable")
-        missing = [t for t in expected if t not in rows]
-        lines.append(f"| {name} | {len(expected)} | {ok} | {unavailable} | {len(missing)} |")
+        # A run counts against us only once the source listed it, or a later run, as its newest.
+        newest = con.execute("SELECT max(run) FROM publish WHERE model=? AND source='latest'", (name,)).fetchone()[0]
+        missing = [t for t in expected if t not in rows and newest is not None and newest >= t]
+        unlisted = [t for t in expected if t not in rows and (newest is None or newest < t)]
+        lines.append(f"| {name} | {len(expected)} | {ok} | {unavailable + len(unlisted)} | {len(missing)} |")
         if missing:
             problems.append(f"{name}: {len(missing)} runs never fetched ({', '.join(iso_z(t)[11:16] for t in missing)})")
+        if unlisted:
+            warnings.append(f"{name}: {len(unlisted)} runs not yet published by the source "
+                            f"({', '.join(iso_z(t)[11:16] for t in unlisted)})")
 
     n_reports = con.execute("SELECT count(DISTINCT obs) FROM metar WHERE obs>=? AND obs<?", (s, e)).fetchone()[0]
     expected_reports = (e - s) // 1800
