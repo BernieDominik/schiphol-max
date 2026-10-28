@@ -3,10 +3,10 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from datetime import date, timedelta
+from datetime import date, datetime, time, timedelta
 
 from .config import Config
-from .timeutil import local_date, local_ts
+from .timeutil import UTC, local_date, local_ts, to_ts
 
 KIND_ORDER = {"settle": 0, "refit": 1, "forecast": 2, "completeness": 3, "scorecard": 4}
 
@@ -37,11 +37,25 @@ def keys(cfg: Config) -> list[tuple[str, int]]:
     return [(r, l) for r in run_names(cfg) for l in leads(cfg, r)]
 
 
+def slot_ts(day: date, hhmm: str) -> int:
+    """A time on an Amsterdam calendar day: "21:00" is Amsterdam time, "20:45Z" is UTC on that date."""
+    if hhmm.endswith("Z"):
+        h, m = map(int, hhmm[:-1].split(":"))
+        return to_ts(datetime.combine(day, time(h, m), UTC))
+    return local_ts(day, hhmm)
+
+
+def run_time(cfg: Config, run: str, day: date) -> int:
+    """Issue time of `run` on local date `day`. An optional `later: {from, time}` moves it from that date on."""
+    spec = cfg["schedule"]["forecast_runs"][run]
+    later = spec.get("later")
+    if later and day >= date.fromisoformat(str(later["from"])):
+        return slot_ts(day, later["time"])
+    return slot_ts(day, spec["time"])
+
+
 def issue_time(cfg: Config, run: str, lead: int, target_day: date) -> int:
-    t = cfg["schedule"]["forecast_runs"][run]["time"]
-    if lead == 0:
-        return local_ts(target_day, t)
-    return local_ts(target_day - timedelta(days=lead), t)
+    return run_time(cfg, run, target_day - timedelta(days=lead))
 
 
 def target_days(cfg: Config, run: str, issue_day: date) -> list[tuple[int, date]]:
@@ -63,7 +77,7 @@ def slots_between(cfg: Config, start: int, end: int, runs: list[str] | None = No
         if d.weekday() == sch["scorecard"]["weekday"]:
             cand.append(Slot(local_ts(d, sch["scorecard"]["time"]), KIND_ORDER["scorecard"], "scorecard", "", d))
         for r in runs:
-            cand.append(Slot(local_ts(d, sch["forecast_runs"][r]["time"]), KIND_ORDER["forecast"], "forecast", r, d))
+            cand.append(Slot(run_time(cfg, r, d), KIND_ORDER["forecast"], "forecast", r, d))
         out += [s for s in cand if start < s.ts <= end]
         d += timedelta(days=1)
     return sorted(out)

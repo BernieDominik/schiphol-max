@@ -6,7 +6,8 @@ every scheduled forecast run produced on time) and the nightly re-run of its for
 - M0 + M7: after 7 good days in a row, the same-day runs (06:00, 09:00, 12:00, 15:00) are switched on (M8) and the
   time since go-live is filled in by replay.
 - M10: the soak starts the day after; after 60 good days in a row criterion 10 passes, the final report is written,
-  and the pre-registered calibration decision is taken (below). A bad day restarts the count.
+  and the pre-registered calibration decision is taken (below). A bad day restarts the count. From the next day on,
+  the evening run moves to 20:45 UTC (EVENING_AFTER_SOAK).
 
 Pre-registered calibration decision (written 7 Oct 2026, before any live data):
 the soak period is replayed with each refinement that was tried on the tuning year: Student-t (F5); spread level from
@@ -36,6 +37,9 @@ VARIANTS = {
     "e3_mlpol": {"blend.method": "mlpol"},
     "f6_disagreement": {"calibration.disagreement_spread": True},
 }
+# Decided 28 Oct 2026 (product owner): after the soak, the evening run moves to 20:45 UTC (21:45 in winter, 22:45 in
+# summer), so it uses the European model's 12 UTC run. Just before the :02 hourly trigger, so it is never late.
+EVENING_AFTER_SOAK = "20:45Z"
 
 
 def path(cfg: Config) -> Path:
@@ -166,6 +170,11 @@ def finish_soak(cfg: Config, state: dict, first: date, last: date, get_ctx, log)
             rows.append(f"| {run} {lead} | {a['n']} | {a['hit_rate']:.1%} / {b.get('hit_rate', float('nan')):.1%} | "
                         f"{a['mae']:.2f} / {b.get('mae', float('nan')):.2f} | {a['coverage90']:.1%} / {b.get('coverage90', float('nan')):.1%} |")
     state["soak_passed"] = last.isoformat()
+    switch_day = last + timedelta(days=1) if cfg["schedule"]["forecast_runs"]["evening"].get("later") is None else None
+    if switch_day:
+        state["overrides"] = {**state.get("overrides", {}), "schedule.forecast_runs.evening.later":
+                              {"from": switch_day.isoformat(), "time": EVENING_AFTER_SOAK}}
+        decision += f" Evening run moves to {EVENING_AFTER_SOAK[:-1]} UTC from {switch_day}."
     state["events"].append({"at": datetime.now(UTC).strftime("%Y-%m-%dT%H:%M:%SZ"),
                             "event": f"criterion 10 passed ({first} to {last}); {decision}"})
     text = "\n".join([
