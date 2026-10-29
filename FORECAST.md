@@ -16,27 +16,27 @@ Chance of a miss of 2 °C or more against the standard forecast: 1% (typical 4%)
 ```
 
 ```
-Fri 30 Oct, issued Wed 21:00
-   12 °C   5%
-   13 °C  29%
-   14 °C  43%   most likely
-   15 °C  19%
-   16 °C   2%
+Fri 30 Oct, issued Thu 21:00
+   11 °C   0%
+   12 °C   8%
+   13 °C  42%   most likely
+   14 °C  41%
+   15 °C   8%
   other    1%
-Standard forecast 13 °C: 65% chance the maximum is higher, 6% lower.
-Chance of a miss of 2 °C or more against the standard forecast: 23% (typical 24%).
+Standard forecast 13 °C: 49% chance the maximum is higher, 9% lower.
+Chance of a miss of 2 °C or more against the standard forecast: 9% (typical 17%).
 ```
 
 ## Next days (evening run)
 
 | Day | Most likely | Probability | Five listed degrees cover |
 | --- | --- | --- | --- |
-| Fri 30 Oct | 14 °C | 43% | 99% |
-| Sat 31 Oct | 12 °C | 38% | 98% |
-| Sun 01 Nov | 13 °C | 32% | 95% |
-| Mon 02 Nov | 13 °C | 26% | 90% |
-| Tue 03 Nov | 13 °C | 22% | 84% |
-| Wed 04 Nov | 12 °C | 14% | 64% |
+| Sat 31 Oct | 13 °C | 39% | 98% |
+| Sun 01 Nov | 12 °C | 35% | 97% |
+| Mon 02 Nov | 13 °C | 32% | 96% |
+| Tue 03 Nov | 12 °C | 27% | 91% |
+| Wed 04 Nov | 12 °C | 23% | 85% |
+| Thu 05 Nov | 12 °C | 14% | 64% |
 
 **System status:** All runs live since 2026-10-17. 60-day soak: 11/60 clean days in a row.
 
