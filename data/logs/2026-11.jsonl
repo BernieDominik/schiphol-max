@@ -1318,3 +1318,19 @@
 {"ts": "2026-11-03T01:03:32Z", "job": "milestones", "event": "success", "detail": "All runs live since 2026-10-17. 60-day soak: 0/60 clean days in a row."}
 {"ts": "2026-11-03T01:03:32Z", "job": "forecast page", "event": "start", "detail": ""}
 {"ts": "2026-11-03T01:03:32Z", "job": "forecast page", "event": "success", "detail": "2 days"}
+{"ts": "2026-11-03T01:49:46Z", "job": "latest_runs", "event": "start", "detail": ""}
+{"ts": "2026-11-03T01:49:47Z", "job": "latest_runs", "event": "success", "detail": "{'ifs_hres': 1793642400, 'aifs_single': 1793642400, 'harmonie_nl': 1793653200, 'icon_d2': 1793664000, 'icon_eu': 1793653200, 'gfs': 1793642400, 'ukmo_global': 1793642400, 'arpege_europe': 1793642400}"}
+{"ts": "2026-11-03T01:49:47Z", "job": "single_runs", "event": "start", "detail": ""}
+{"ts": "2026-11-03T01:49:47Z", "job": "single_runs", "event": "success", "detail": "{'2026-11-02T18:00:00Z': {'ukmo_global': 'ok'}, '2026-11-03T00:00:00Z': {'icon_d2': 'ok'}}"}
+{"ts": "2026-11-03T01:49:47Z", "job": "awc_metar", "event": "start", "detail": ""}
+{"ts": "2026-11-03T01:49:48Z", "job": "awc_metar", "event": "success", "detail": ""}
+{"ts": "2026-11-03T01:49:48Z", "job": "mosmix", "event": "start", "detail": ""}
+{"ts": "2026-11-03T01:49:48Z", "job": "mosmix", "event": "success", "detail": "[]"}
+{"ts": "2026-11-03T01:49:48Z", "job": "publish_times", "event": "start", "detail": ""}
+{"ts": "2026-11-03T01:49:48Z", "job": "publish_times", "event": "success", "detail": "[None, None]"}
+{"ts": "2026-11-03T01:49:48Z", "job": "ingest", "event": "start", "detail": ""}
+{"ts": "2026-11-03T01:49:50Z", "job": "ingest", "event": "success", "detail": "4"}
+{"ts": "2026-11-03T01:49:55Z", "job": "milestones", "event": "start", "detail": ""}
+{"ts": "2026-11-03T01:49:55Z", "job": "milestones", "event": "success", "detail": "All runs live since 2026-10-17. 60-day soak: 0/60 clean days in a row."}
+{"ts": "2026-11-03T01:49:55Z", "job": "forecast page", "event": "start", "detail": ""}
+{"ts": "2026-11-03T01:49:55Z", "job": "forecast page", "event": "success", "detail": "2 days"}
