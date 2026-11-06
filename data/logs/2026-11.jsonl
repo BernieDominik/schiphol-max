@@ -3260,3 +3260,21 @@
 {"ts": "2026-11-06T03:02:40Z", "job": "milestones", "event": "success", "detail": "All runs live since 2026-10-17. 60-day soak: 0/60 clean days in a row."}
 {"ts": "2026-11-06T03:02:40Z", "job": "forecast page", "event": "start", "detail": ""}
 {"ts": "2026-11-06T03:02:40Z", "job": "forecast page", "event": "success", "detail": "2 days"}
+{"ts": "2026-11-06T04:02:30Z", "job": "latest_runs", "event": "start", "detail": ""}
+{"ts": "2026-11-06T04:02:30Z", "job": "latest_runs", "event": "success", "detail": "{'ifs_hres': 1793901600, 'aifs_single': 1793901600, 'harmonie_nl': 1793923200, 'icon_d2': 1793923200, 'icon_eu': 1793923200, 'gfs': 1793901600, 'ukmo_global': 1793901600, 'arpege_europe': 1793923200}"}
+{"ts": "2026-11-06T04:02:30Z", "job": "single_runs", "event": "start", "detail": ""}
+{"ts": "2026-11-06T04:02:31Z", "job": "single_runs", "event": "success", "detail": "{'2026-11-06T00:00:00Z': {'icon_eu': 'ok', 'arpege_europe': 'ok'}}"}
+{"ts": "2026-11-06T04:02:31Z", "job": "awc_metar", "event": "start", "detail": ""}
+{"ts": "2026-11-06T04:02:31Z", "job": "awc_metar", "event": "success", "detail": ""}
+{"ts": "2026-11-06T04:02:31Z", "job": "mosmix", "event": "start", "detail": ""}
+{"ts": "2026-11-06T04:02:33Z", "job": "mosmix", "event": "success", "detail": "[]"}
+{"ts": "2026-11-06T04:02:33Z", "job": "publish_times", "event": "start", "detail": ""}
+{"ts": "2026-11-06T04:02:33Z", "job": "publish_times", "event": "success", "detail": "[None, None]"}
+{"ts": "2026-11-06T04:02:33Z", "job": "iem_metar", "event": "start", "detail": ""}
+{"ts": "2026-11-06T04:02:33Z", "job": "iem_metar", "event": "success", "detail": ""}
+{"ts": "2026-11-06T04:02:33Z", "job": "ingest", "event": "start", "detail": ""}
+{"ts": "2026-11-06T04:02:34Z", "job": "ingest", "event": "success", "detail": "4"}
+{"ts": "2026-11-06T04:02:38Z", "job": "milestones", "event": "start", "detail": ""}
+{"ts": "2026-11-06T04:02:38Z", "job": "milestones", "event": "success", "detail": "All runs live since 2026-10-17. 60-day soak: 0/60 clean days in a row."}
+{"ts": "2026-11-06T04:02:38Z", "job": "forecast page", "event": "start", "detail": ""}
+{"ts": "2026-11-06T04:02:38Z", "job": "forecast page", "event": "success", "detail": "2 days"}
