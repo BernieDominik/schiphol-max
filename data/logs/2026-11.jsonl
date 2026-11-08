@@ -4490,3 +4490,19 @@
 {"ts": "2026-11-08T00:02:46Z", "job": "milestones", "event": "success", "detail": "All runs live since 2026-10-17. 60-day soak: 0/60 clean days in a row."}
 {"ts": "2026-11-08T00:02:46Z", "job": "forecast page", "event": "start", "detail": ""}
 {"ts": "2026-11-08T00:02:46Z", "job": "forecast page", "event": "success", "detail": "2 days"}
+{"ts": "2026-11-08T00:39:03Z", "job": "latest_runs", "event": "start", "detail": ""}
+{"ts": "2026-11-08T00:39:04Z", "job": "latest_runs", "event": "success", "detail": "{'ifs_hres': 1794074400, 'aifs_single': 1794074400, 'harmonie_nl': 1794085200, 'icon_d2': 1794085200, 'icon_eu': 1794085200, 'gfs': 1794074400, 'ukmo_global': 1794052800, 'arpege_europe': 1794074400}"}
+{"ts": "2026-11-08T00:39:04Z", "job": "single_runs", "event": "start", "detail": ""}
+{"ts": "2026-11-08T00:39:04Z", "job": "single_runs", "event": "success", "detail": "{'2026-11-07T18:00:00Z': {'ifs_hres': 'ok', 'aifs_single': 'ok'}}"}
+{"ts": "2026-11-08T00:39:04Z", "job": "awc_metar", "event": "start", "detail": ""}
+{"ts": "2026-11-08T00:39:07Z", "job": "awc_metar", "event": "success", "detail": ""}
+{"ts": "2026-11-08T00:39:07Z", "job": "mosmix", "event": "start", "detail": ""}
+{"ts": "2026-11-08T00:39:08Z", "job": "mosmix", "event": "success", "detail": "[]"}
+{"ts": "2026-11-08T00:39:08Z", "job": "publish_times", "event": "start", "detail": ""}
+{"ts": "2026-11-08T00:39:08Z", "job": "publish_times", "event": "success", "detail": "[None, None]"}
+{"ts": "2026-11-08T00:39:08Z", "job": "ingest", "event": "start", "detail": ""}
+{"ts": "2026-11-08T00:39:10Z", "job": "ingest", "event": "success", "detail": "4"}
+{"ts": "2026-11-08T00:39:15Z", "job": "milestones", "event": "start", "detail": ""}
+{"ts": "2026-11-08T00:39:15Z", "job": "milestones", "event": "success", "detail": "All runs live since 2026-10-17. 60-day soak: 0/60 clean days in a row."}
+{"ts": "2026-11-08T00:39:15Z", "job": "forecast page", "event": "start", "detail": ""}
+{"ts": "2026-11-08T00:39:15Z", "job": "forecast page", "event": "success", "detail": "2 days"}
