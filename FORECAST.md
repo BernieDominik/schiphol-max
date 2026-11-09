@@ -3,15 +3,15 @@
 Highest temperature of the Amsterdam day at Schiphol, in whole °C: the highest half-hourly airport report (the figure the Weather Underground history page is built from). Each degree gets its own probability.
 
 ```
-Mon 9 Nov, issued Mon 06:00
+Mon 9 Nov, issued Mon 09:00
     8 °C   3%
-    9 °C  25%
+    9 °C  26%
    10 °C  49%   most likely
-   11 °C  21%
+   11 °C  20%
    12 °C   2%
   other    1%
 Maximum so far today: 7 °C.
-Standard forecast 9 °C: 72% chance the maximum is higher, 3% lower.
+Standard forecast 9 °C: 71% chance the maximum is higher, 3% lower.
 Chance of a miss of 2 °C or more against the standard forecast: 23% (typical 20%).
 ```
 
