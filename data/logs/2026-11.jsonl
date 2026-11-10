@@ -6354,3 +6354,21 @@
 {"ts": "2026-11-10T23:02:49Z", "job": "milestones", "event": "success", "detail": "All runs live since 2026-10-17. 60-day soak: 0/60 clean days in a row."}
 {"ts": "2026-11-10T23:02:49Z", "job": "forecast page", "event": "start", "detail": ""}
 {"ts": "2026-11-10T23:02:49Z", "job": "forecast page", "event": "success", "detail": "2 days"}
+{"ts": "2026-11-10T23:24:40Z", "job": "latest_runs", "event": "start", "detail": ""}
+{"ts": "2026-11-10T23:24:41Z", "job": "latest_runs", "event": "success", "detail": "{'ifs_hres': 1794312000, 'aifs_single': 1794312000, 'harmonie_nl': 1794333600, 'icon_d2': 1794344400, 'icon_eu': 1794333600, 'gfs': 1794312000, 'ukmo_global': 1794312000, 'arpege_europe': 1794333600}"}
+{"ts": "2026-11-10T23:24:41Z", "job": "single_runs", "event": "start", "detail": ""}
+{"ts": "2026-11-10T23:24:41Z", "job": "single_runs", "event": "success", "detail": "{}"}
+{"ts": "2026-11-10T23:24:41Z", "job": "awc_metar", "event": "start", "detail": ""}
+{"ts": "2026-11-10T23:24:42Z", "job": "awc_metar", "event": "success", "detail": ""}
+{"ts": "2026-11-10T23:24:42Z", "job": "mosmix", "event": "start", "detail": ""}
+{"ts": "2026-11-10T23:24:43Z", "job": "mosmix", "event": "success", "detail": "[]"}
+{"ts": "2026-11-10T23:24:43Z", "job": "publish_times", "event": "start", "detail": ""}
+{"ts": "2026-11-10T23:24:43Z", "job": "publish_times", "event": "success", "detail": "[None, None]"}
+{"ts": "2026-11-10T23:24:43Z", "job": "ingest", "event": "start", "detail": ""}
+{"ts": "2026-11-10T23:24:44Z", "job": "ingest", "event": "success", "detail": "2"}
+{"ts": "2026-11-10T23:24:55Z", "job": "settle", "event": "start", "detail": ""}
+{"ts": "2026-11-10T23:24:55Z", "job": "settle", "event": "success", "detail": "0"}
+{"ts": "2026-11-10T23:24:55Z", "job": "milestones", "event": "start", "detail": ""}
+{"ts": "2026-11-10T23:24:55Z", "job": "milestones", "event": "success", "detail": "All runs live since 2026-10-17. 60-day soak: 0/60 clean days in a row."}
+{"ts": "2026-11-10T23:24:55Z", "job": "forecast page", "event": "start", "detail": ""}
+{"ts": "2026-11-10T23:24:55Z", "job": "forecast page", "event": "success", "detail": "2 days"}
