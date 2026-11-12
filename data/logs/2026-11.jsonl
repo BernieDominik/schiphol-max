@@ -7152,3 +7152,25 @@
 {"ts": "2026-11-12T05:02:42Z", "job": "milestones", "event": "success", "detail": "All runs live since 2026-10-17. 60-day soak: 0/60 clean days in a row."}
 {"ts": "2026-11-12T05:02:42Z", "job": "forecast page", "event": "start", "detail": ""}
 {"ts": "2026-11-12T05:02:42Z", "job": "forecast page", "event": "success", "detail": "2 days"}
+{"ts": "2026-11-12T06:02:32Z", "job": "latest_runs", "event": "start", "detail": ""}
+{"ts": "2026-11-12T06:02:33Z", "job": "latest_runs", "event": "success", "detail": "{'ifs_hres': 1794441600, 'aifs_single': 1794441600, 'harmonie_nl': 1794452400, 'icon_d2': 1794452400, 'icon_eu': 1794452400, 'gfs': 1794441600, 'ukmo_global': 1794420000, 'arpege_europe': 1794441600}"}
+{"ts": "2026-11-12T06:02:33Z", "job": "single_runs", "event": "start", "detail": ""}
+{"ts": "2026-11-12T06:02:34Z", "job": "single_runs", "event": "success", "detail": "{'2026-11-12T00:00:00Z': {'ifs_hres': 'ok', 'aifs_single': 'ok', 'gfs': 'ok'}, '2026-11-12T03:00:00Z': {'harmonie_nl': 'ok', 'icon_eu': 'ok'}}"}
+{"ts": "2026-11-12T06:02:34Z", "job": "awc_metar", "event": "start", "detail": ""}
+{"ts": "2026-11-12T06:02:34Z", "job": "awc_metar", "event": "success", "detail": ""}
+{"ts": "2026-11-12T06:02:34Z", "job": "mosmix", "event": "start", "detail": ""}
+{"ts": "2026-11-12T06:02:35Z", "job": "mosmix", "event": "success", "detail": "[]"}
+{"ts": "2026-11-12T06:02:35Z", "job": "publish_times", "event": "start", "detail": ""}
+{"ts": "2026-11-12T06:02:35Z", "job": "publish_times", "event": "success", "detail": "[None, None]"}
+{"ts": "2026-11-12T06:02:35Z", "job": "iem_metar", "event": "start", "detail": ""}
+{"ts": "2026-11-12T06:02:35Z", "job": "iem_metar", "event": "success", "detail": ""}
+{"ts": "2026-11-12T06:02:35Z", "job": "knmi_daily", "event": "start", "detail": ""}
+{"ts": "2026-11-12T06:02:35Z", "job": "knmi_daily", "event": "success", "detail": ""}
+{"ts": "2026-11-12T06:02:35Z", "job": "ingest", "event": "start", "detail": ""}
+{"ts": "2026-11-12T06:02:37Z", "job": "ingest", "event": "success", "detail": "8"}
+{"ts": "2026-11-12T06:02:42Z", "job": "completeness", "event": "start", "detail": ""}
+{"ts": "2026-11-12T06:02:42Z", "job": "completeness", "event": "success", "detail": "('# Completeness 2026-11-11\\n\\n## Model runs (exact-run archive)\\n\\n| Model | Expected | Stored | Not in archive | Missing |\\n| --- | --- | --- | --- | --- |\\n| ifs_hres | 4 | 4 | 0 | 0 |\\n| aifs_single | 4 | 4 | 0 | 0 |\\n| harmonie_nl | 8 | 8 | 0 | 0 |\\n| icon_d2 | 8 | 8 | 0 | 0 |\\n| icon_eu | 8 | 8 | 0 | 0 |\\n| gfs | 4 | 4 | 0 | 0 |\\n| ukmo_global | 4 | 4 | 0 | 0 |\\n| arpege_europe | 4 | 4 | 0 | 0 |\\n\\nAirport reports: 48 of 48 half-hourly slots.\\nMOSMIX runs: 4 of 4.\\nLatest KNMI daily value:"}
+{"ts": "2026-11-12T06:02:42Z", "job": "milestones", "event": "start", "detail": ""}
+{"ts": "2026-11-12T06:02:42Z", "job": "milestones", "event": "success", "detail": "All runs live since 2026-10-17. 60-day soak: 25/60 clean days in a row."}
+{"ts": "2026-11-12T06:02:42Z", "job": "forecast page", "event": "start", "detail": ""}
+{"ts": "2026-11-12T06:02:42Z", "job": "forecast page", "event": "success", "detail": "2 days"}
