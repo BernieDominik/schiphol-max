@@ -3,16 +3,16 @@
 Highest temperature of the Amsterdam day at Schiphol, in whole °C: the highest half-hourly airport report (the figure the Weather Underground history page is built from). Each degree gets its own probability.
 
 ```
-Sun 15 Nov, issued Sun 12:00
-    8 °C   2%
-    9 °C  26%
-   10 °C  51%   most likely
-   11 °C  18%
-   12 °C   1%
+Sun 15 Nov, issued Sun 15:00
+    8 °C   0%
+    9 °C  30%
+   10 °C  63%   most likely
+   11 °C   6%
+   12 °C   0%
   other    1%
-Maximum so far today: 6 °C.
-Standard forecast 10 °C: 20% chance the maximum is higher, 29% lower.
-Chance of a miss of 2 °C or more against the standard forecast: 5% (typical 15%).
+Maximum so far today: 7 °C.
+Standard forecast 10 °C: 6% chance the maximum is higher, 30% lower.
+Chance of a miss of 2 °C or more against the standard forecast: 1% (typical 4%).
 ```
 
 ```
