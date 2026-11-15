@@ -8938,3 +8938,6 @@
 {"ts": "2026-11-15T01:02:37Z", "job": "milestones", "event": "success", "detail": "All runs live since 2026-10-17. 60-day soak: 0/60 clean days in a row."}
 {"ts": "2026-11-15T01:02:37Z", "job": "forecast page", "event": "start", "detail": ""}
 {"ts": "2026-11-15T01:02:37Z", "job": "forecast page", "event": "success", "detail": "2 days"}
+{"ts": "2026-11-15T02:02:36Z", "job": "latest_runs", "event": "start", "detail": ""}
+{"ts": "2026-11-15T02:02:36Z", "job": "latest_runs", "event": "success", "detail": "{'ifs_hres': 1794679200, 'aifs_single': 1794679200, 'harmonie_nl': 1794690000, 'icon_d2': 1794700800, 'icon_eu': 1794690000, 'gfs': 1794679200, 'ukmo_global': 1794679200, 'arpege_europe': 1794679200}"}
+{"ts": "2026-11-15T02:02:36Z", "job": "single_runs", "event": "start", "detail": ""}
