@@ -16,27 +16,27 @@ Chance of a miss of 2 °C or more against the standard forecast: 1% (typical 4%)
 ```
 
 ```
-Tue 17 Nov, issued Sun 21:00
-   10 °C   2%
-   11 °C  13%
-   12 °C  37%   most likely
-   13 °C  35%
-   14 °C  11%
-  other    2%
-Standard forecast 12 °C: 48% chance the maximum is higher, 15% lower.
-Chance of a miss of 2 °C or more against the standard forecast: 15% (typical 23%).
+Tue 17 Nov, issued Mon 21:00
+   11 °C   3%
+   12 °C  26%
+   13 °C  49%   most likely
+   14 °C  19%
+   15 °C   2%
+  other    1%
+Standard forecast 13 °C: 21% chance the maximum is higher, 30% lower.
+Chance of a miss of 2 °C or more against the standard forecast: 6% (typical 17%).
 ```
 
 ## Next days (evening run)
 
 | Day | Most likely | Probability | Five listed degrees cover |
 | --- | --- | --- | --- |
-| Tue 17 Nov | 12 °C | 37% | 98% |
-| Wed 18 Nov | 11 °C | 35% | 97% |
-| Thu 19 Nov | 10 °C | 32% | 96% |
-| Fri 20 Nov | 9 °C | 26% | 90% |
-| Sat 21 Nov | 10 °C | 22% | 83% |
-| Sun 22 Nov | 10 °C | 14% | 64% |
+| Wed 18 Nov | 11 °C | 40% | 98% |
+| Thu 19 Nov | 10 °C | 36% | 97% |
+| Fri 20 Nov | 9 °C | 32% | 96% |
+| Sat 21 Nov | 10 °C | 26% | 90% |
+| Sun 22 Nov | 8 °C | 22% | 84% |
+| Mon 23 Nov | 7 °C | 14% | 64% |
 
 **System status:** All runs live since 2026-10-17. 60-day soak: 29/60 clean days in a row.
 
