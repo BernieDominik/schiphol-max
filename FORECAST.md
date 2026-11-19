@@ -16,27 +16,27 @@ Chance of a miss of 2 °C or more against the standard forecast: 1% (typical 4%)
 ```
 
 ```
-Fri 20 Nov, issued Wed 21:00
-    6 °C   8%
+Fri 20 Nov, issued Thu 21:00
+    6 °C   4%
     7 °C  31%
-    8 °C  40%   most likely
-    9 °C  17%
-   10 °C   2%
-  other    2%
-Standard forecast 7 °C: 59% chance the maximum is higher, 10% lower.
-Chance of a miss of 2 °C or more against the standard forecast: 21% (typical 23%).
+    8 °C  48%   most likely
+    9 °C  16%
+   10 °C   1%
+  other    1%
+Standard forecast 7 °C: 65% chance the maximum is higher, 5% lower.
+Chance of a miss of 2 °C or more against the standard forecast: 18% (typical 17%).
 ```
 
 ## Next days (evening run)
 
 | Day | Most likely | Probability | Five listed degrees cover |
 | --- | --- | --- | --- |
-| Fri 20 Nov | 8 °C | 40% | 98% |
-| Sat 21 Nov | 9 °C | 36% | 98% |
-| Sun 22 Nov | 7 °C | 32% | 96% |
-| Mon 23 Nov | 7 °C | 26% | 90% |
-| Tue 24 Nov | 7 °C | 23% | 85% |
-| Wed 25 Nov | 8 °C | 14% | 64% |
+| Sat 21 Nov | 9 °C | 41% | 98% |
+| Sun 22 Nov | 7 °C | 37% | 98% |
+| Mon 23 Nov | 8 °C | 30% | 94% |
+| Tue 24 Nov | 6 °C | 26% | 91% |
+| Wed 25 Nov | 6 °C | 22% | 84% |
+| Thu 26 Nov | 4 °C | 14% | 63% |
 
 **System status:** All runs live since 2026-10-17. 60-day soak: 32/60 clean days in a row.
 
