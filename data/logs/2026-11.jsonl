@@ -12007,3 +12007,19 @@
 {"ts": "2026-11-20T00:02:53Z", "job": "milestones", "event": "success", "detail": "All runs live since 2026-10-17. 60-day soak: 0/60 clean days in a row."}
 {"ts": "2026-11-20T00:02:53Z", "job": "forecast page", "event": "start", "detail": ""}
 {"ts": "2026-11-20T00:02:53Z", "job": "forecast page", "event": "success", "detail": "2 days"}
+{"ts": "2026-11-20T01:02:38Z", "job": "latest_runs", "event": "start", "detail": ""}
+{"ts": "2026-11-20T01:02:38Z", "job": "latest_runs", "event": "success", "detail": "{'ifs_hres': 1795111200, 'aifs_single': 1795111200, 'harmonie_nl': 1795122000, 'icon_d2': 1795122000, 'icon_eu': 1795122000, 'gfs': 1795111200, 'ukmo_global': 1795089600, 'arpege_europe': 1795111200}"}
+{"ts": "2026-11-20T01:02:38Z", "job": "single_runs", "event": "start", "detail": ""}
+{"ts": "2026-11-20T01:02:38Z", "job": "single_runs", "event": "success", "detail": "{}"}
+{"ts": "2026-11-20T01:02:38Z", "job": "awc_metar", "event": "start", "detail": ""}
+{"ts": "2026-11-20T01:02:38Z", "job": "awc_metar", "event": "success", "detail": ""}
+{"ts": "2026-11-20T01:02:38Z", "job": "mosmix", "event": "start", "detail": ""}
+{"ts": "2026-11-20T01:02:39Z", "job": "mosmix", "event": "success", "detail": "[]"}
+{"ts": "2026-11-20T01:02:39Z", "job": "publish_times", "event": "start", "detail": ""}
+{"ts": "2026-11-20T01:02:39Z", "job": "publish_times", "event": "success", "detail": "[None, None]"}
+{"ts": "2026-11-20T01:02:39Z", "job": "ingest", "event": "start", "detail": ""}
+{"ts": "2026-11-20T01:02:40Z", "job": "ingest", "event": "success", "detail": "2"}
+{"ts": "2026-11-20T01:02:44Z", "job": "milestones", "event": "start", "detail": ""}
+{"ts": "2026-11-20T01:02:44Z", "job": "milestones", "event": "success", "detail": "All runs live since 2026-10-17. 60-day soak: 0/60 clean days in a row."}
+{"ts": "2026-11-20T01:02:44Z", "job": "forecast page", "event": "start", "detail": ""}
+{"ts": "2026-11-20T01:02:44Z", "job": "forecast page", "event": "success", "detail": "2 days"}
