@@ -13719,3 +13719,23 @@
 {"ts": "2026-11-22T18:02:47Z", "job": "milestones", "event": "success", "detail": "All runs live since 2026-10-17. 60-day soak: 35/60 clean days in a row."}
 {"ts": "2026-11-22T18:02:47Z", "job": "forecast page", "event": "start", "detail": ""}
 {"ts": "2026-11-22T18:02:47Z", "job": "forecast page", "event": "success", "detail": "2 days"}
+{"ts": "2026-11-22T18:04:19Z", "job": "latest_runs", "event": "start", "detail": ""}
+{"ts": "2026-11-22T18:04:19Z", "job": "latest_runs", "event": "success", "detail": "{'ifs_hres': 1795348800, 'aifs_single': 1795348800, 'harmonie_nl': 1795359600, 'icon_d2': 1795359600, 'icon_eu': 1795359600, 'gfs': 1795348800, 'ukmo_global': 1795327200, 'arpege_europe': 1795348800}"}
+{"ts": "2026-11-22T18:04:19Z", "job": "single_runs", "event": "start", "detail": ""}
+{"ts": "2026-11-22T18:26:52Z", "job": "single_runs", "event": "success", "detail": "{'2026-11-21T18:00:00Z': {'arpege_europe': 'failed: https://single-runs-api.open-meteo.com/v1/forecast -> HTTP 429: {\"reason\":\"Daily API request limit exceeded. Please try again tomorrow.\",\"error\":true}'}}"}
+{"ts": "2026-11-22T18:26:52Z", "job": "awc_metar", "event": "start", "detail": ""}
+{"ts": "2026-11-22T18:26:52Z", "job": "awc_metar", "event": "success", "detail": ""}
+{"ts": "2026-11-22T18:26:52Z", "job": "mosmix", "event": "start", "detail": ""}
+{"ts": "2026-11-22T18:26:53Z", "job": "mosmix", "event": "success", "detail": "[]"}
+{"ts": "2026-11-22T18:26:53Z", "job": "publish_times", "event": "start", "detail": ""}
+{"ts": "2026-11-22T18:26:53Z", "job": "publish_times", "event": "success", "detail": "[None, None]"}
+{"ts": "2026-11-22T18:26:53Z", "job": "iem_metar", "event": "start", "detail": ""}
+{"ts": "2026-11-22T18:26:53Z", "job": "iem_metar", "event": "success", "detail": ""}
+{"ts": "2026-11-22T18:26:53Z", "job": "knmi_daily", "event": "start", "detail": ""}
+{"ts": "2026-11-22T18:26:53Z", "job": "knmi_daily", "event": "success", "detail": ""}
+{"ts": "2026-11-22T18:26:53Z", "job": "ingest", "event": "start", "detail": ""}
+{"ts": "2026-11-22T18:26:54Z", "job": "ingest", "event": "success", "detail": "2"}
+{"ts": "2026-11-22T18:26:58Z", "job": "milestones", "event": "start", "detail": ""}
+{"ts": "2026-11-22T18:26:58Z", "job": "milestones", "event": "success", "detail": "All runs live since 2026-10-17. 60-day soak: 35/60 clean days in a row."}
+{"ts": "2026-11-22T18:26:58Z", "job": "forecast page", "event": "start", "detail": ""}
+{"ts": "2026-11-22T18:26:58Z", "job": "forecast page", "event": "success", "detail": "2 days"}
