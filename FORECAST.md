@@ -16,27 +16,27 @@ Chance of a miss of 2 °C or more against the standard forecast: 2% (typical 4%)
 ```
 
 ```
-Sat 28 Nov, issued Thu 21:00
-    0 °C   1%
-    1 °C  11%
-    2 °C  37%   most likely
-    3 °C  37%
-    4 °C  11%
-  other    2%
-Standard forecast 2 °C: 50% chance the maximum is higher, 13% lower.
-Chance of a miss of 2 °C or more against the standard forecast: 14% (typical 23%).
+Sat 28 Nov, issued Fri 21:00
+    0 °C   0%
+    1 °C  10%
+    2 °C  45%   most likely
+    3 °C  38%
+    4 °C   6%
+  other    1%
+Standard forecast 2 °C: 45% chance the maximum is higher, 10% lower.
+Chance of a miss of 2 °C or more against the standard forecast: 7% (typical 17%).
 ```
 
 ## Next days (evening run)
 
 | Day | Most likely | Probability | Five listed degrees cover |
 | --- | --- | --- | --- |
-| Sat 28 Nov | 2 °C | 37% | 98% |
-| Sun 29 Nov | 5 °C | 36% | 98% |
-| Mon 30 Nov | 6 °C | 32% | 95% |
-| Tue 01 Dec | 7 °C | 19% | 77% |
-| Wed 02 Dec | 9 °C | 16% | 68% |
-| Thu 03 Dec | 9 °C | 14% | 64% |
+| Sun 29 Nov | 5 °C | 43% | 99% |
+| Mon 30 Nov | 6 °C | 37% | 98% |
+| Tue 01 Dec | 7 °C | 24% | 87% |
+| Wed 02 Dec | 9 °C | 19% | 78% |
+| Thu 03 Dec | 9 °C | 16% | 69% |
+| Fri 04 Dec | 6 °C | 14% | 64% |
 
 **System status:** All runs live since 2026-10-17. 60-day soak: 40/60 clean days in a row.
 
